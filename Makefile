@@ -22,14 +22,14 @@ run_template:
 
 install_backend_dependencies:
 	cd backend; echo "...Installing server dependencies" && \
-	npm install
+	npm ci
 
 install_frontend_dependencies:
 	cd frontend; echo "...Installing client dependencies" && \
-	npm install
+	npm ci
 
 install_template_dependencies:
 	cd template; echo "...Installing template dependencies" && \
-	npm install
+	npm ci
 
 install_dependencies: install_backend_dependencies install_frontend_dependencies install_template_dependencies
