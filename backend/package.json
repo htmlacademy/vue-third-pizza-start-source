@@ -1,0 +1,67 @@
+{
+  "name": "html-academy-pizza-backend",
+  "version": "1.0.0",
+  "contributors": [
+    "Manu Ustenko",
+    "Sergii Shilingov"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run prettier:check && npm run eslint",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run clean && npm run build",
+    "posttest": "npm run lint",
+    "docker:build": "docker build -t html-academy-pizza-backend .",
+    "docker:run": "docker run -p 3000:3000 -d html-academy-pizza-backend",
+    "migrate": "node ./dist/migrate",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "npm run build",
+    "start": "node -r source-map-support/register .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "license": "MIT",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/authentication": "8.0.1",
+    "@loopback/authentication-jwt": "0.10.1",
+    "@loopback/boot": "4.0.1",
+    "@loopback/core": "3.0.1",
+    "@loopback/repository": "4.0.1",
+    "@loopback/rest": "11.0.1",
+    "@loopback/rest-explorer": "4.0.1",
+    "@loopback/service-proxy": "4.0.1",
+    "bcryptjs": "2.4.3",
+    "lodash": "4.17.21",
+    "loopback-connector-postgresql": "5.5.0",
+    "tslib": "2.4.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "8.1.2",
+    "@loopback/eslint-config": "12.0.4",
+    "@loopback/testlab": "4.1.2",
+    "@types/node": "^17.0.36",
+    "eslint": "8.16.0",
+    "source-map-support": "0.5.21",
+    "typescript": "4.7.2"
+  }
+}

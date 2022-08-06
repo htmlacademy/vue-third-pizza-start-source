@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: psql
+      POSTGRES_DB: pizza
+    ports:
+      - 5432:5432
+
+  backend:
+    build: backend
+    command: npm start
+    volumes:
+      - ./backend:/backend
+      - /backend/node_modules
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+
+  frontend:
+    build:
+      context: ./frontend
+#    https://github: com/vitejs/vite/issues/2671#issuecomment-829535806:
+    command: sh -c "npm rebuild esbuild && npm run dev"
+    environment:
+      PORT: '8080'
+      HOST: '0.0.0.0'
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules

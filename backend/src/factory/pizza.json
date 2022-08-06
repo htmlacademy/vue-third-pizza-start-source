@@ -1,0 +1,60 @@
+{
+  "dough": [
+    {
+      "name": "Тонкое",
+      "image": "/public/img/dough-light.svg",
+      "description": "Из твердых сортов пшеницы",
+      "price": 300
+    },
+    {
+      "name": "Толстое",
+      "image": "/public/img/dough-large.svg",
+      "description": "Из твердых сортов пшеницы",
+      "price": 300
+    }
+  ],
+  "ingredients": [
+    { "name": "Грибы", "image": "/public/img/filling/mushrooms.svg", "price": 33 },
+    { "name": "Чеддер", "image": "/public/img/filling/cheddar.svg", "price": 42 },
+    { "name": "Салями", "image": "/public/img/filling/salami.svg", "price": 42 },
+    { "name": "Ветчина", "image": "/public/img/filling/ham.svg", "price": 42 },
+    { "name": "Ананас", "image": "/public/img/filling/ananas.svg", "price": 25 },
+    { "name": "Бекон", "image": "/public/img/filling/bacon.svg", "price": 42 },
+    { "name": "Лук", "image": "/public/img/filling/onion.svg", "price": 21 },
+    { "name": "Чили", "image": "/public/img/filling/chile.svg", "price": 21 },
+    { "name": "Халапеньо", "image": "/public/img/filling/jalapeno.svg", "price": 25 },
+    { "name": "Маслины", "image": "/public/img/filling/olives.svg", "price": 25 },
+    { "name": "Томаты", "image": "/public/img/filling/tomatoes.svg", "price": 35 },
+    { "name": "Лосось", "image": "/public/img/filling/salmon.svg", "price": 50 },
+    { "name": "Моцарелла", "image": "/public/img/filling/mozzarella.svg", "price": 35 },
+    { "name": "Пармезан", "image": "/public/img/filling/parmesan.svg", "price": 35 },
+    { "name": "Блю чиз", "image": "/public/img/filling/blue_cheese.svg", "price": 50 }
+  ],
+  "sauces": [
+    {
+      "name": "Томатный",
+      "price": 50
+    },
+    {
+      "name": "Сливочный",
+      "price": 50
+    }
+  ],
+  "sizes": [
+    {
+      "name": "23 см",
+      "image": "/public/img/diameter.svg",
+      "multiplier": 1
+    },
+    {
+      "name": "32 см",
+      "image": "/public/img/diameter.svg",
+      "multiplier": 2
+    },
+    {
+      "name": "45 см",
+      "image": "/public/img/diameter.svg",
+      "multiplier": 3
+    }
+  ]
+}
