@@ -2,7 +2,6 @@
 .DS_Store
 Thumbs.db
 build/
-package-lock.json
 
 # Файлы редактора
 .idea
