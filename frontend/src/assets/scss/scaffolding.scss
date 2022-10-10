@@ -23,3 +23,10 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
