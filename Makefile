@@ -1,5 +1,8 @@
 # Makefile for local development
 
+sync:
+	npm init @novomanu/project-cli
+
 rebuild_backend:
 	docker-compose down -v
 	docker-compose run backend npm run rebuild
