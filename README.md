@@ -2,16 +2,10 @@
 
 ## Начальные требования
 - Docker
-- Docker-compose
 - NodeJS >= 16
 
 ## Docker установка
 https://docs.docker.com/get-docker/
-
-https://dker.ru/docs/ (рус)
-
-## Docker-compose установка
-https://docs.docker.com/compose/install/
 
 ## Node js установка
 Мы рекоммендуем использовать Node Version Manager для удобного управления версиями node.js
@@ -61,7 +55,7 @@ make --version
 В директории `frontend` возможно выполнить следующие скрипты:
 
 ```
-npm run serve - запуск проекта (только клиент) в режиме разработки
+npm run dev - запуск проекта (только клиент) в режиме разработки
 npm run build - создание продакшн сборки проекта
 npm run test:unit - запуск юнит тестов
 npm run lint - запуск линтера
@@ -99,13 +93,13 @@ npm run lint - запуск линтера
 
 - Сборка проекта
 
-`$ docker-compose build`
+`$ docker compose build`
 
 ### Запуск проекта с Docker
 
-`$ docker-compose down -v`
+`$ docker compose down -v`
 
-`$ docker-compose up`
+`$ docker compose up`
 
 Сервер будет доступен по адресу `localhost:3000`
 
@@ -141,7 +135,7 @@ cd frontend && npm run dev
 
 ## Вход для авторизированного пользователя
 
-Мы создали готового пользователя и разместили его в нашей базе данных. Для входа в систему используйте следующие данные:
+Мы создали готового пользователя и разместили его в нашей базе данных. Для входа (логина) в систему используйте следующие данные:
 
 ```
 email: user@example.com
@@ -189,104 +183,3 @@ npm start
 Шаблон и вёрстка будут доступны по адресу: `http://localhost:9999`.
 
 Вёрстку можно посмотреть в директории `template/src`.
-
-## Развертывание проекта на Windows 10 Home Edition (build 1909)
-
-### Устанавливаем подсистему Windows для Linux (WSL) в Windows 10
-
-Для установки требуется Windows 10 версии 1903 или более поздняя со сборкой 18362 или более поздней версии.
-
-Устанавливаем WSL прямо по шагам, указанным [в этой статье](https://docs.microsoft.com/ru-ru/windows/wsl/install-win10#manual-installation-steps).
-
-На шаге 6 «Установка дистрибутива Linux по выбору» для Windows 10 с русским языком в Microsoft Store нет ничего. Поэтому используем ссылки на страницы Microsoft Store ниже под картинкой: устанавливаем Ubuntu 18.04 LTS. Далее продолжаем установку по инструкции. В конце установки Ubuntu рекомендуется закрепить ярлык на начальном экране (при нажатии на «Пуск»).
-
-Устанавливать Терминал Windows необязательно, так как удобнее использовать терминалы из VSCode.
-
-### Настраиваем Ubuntu 18.04 LTS
-
-Подключаем и обновляем репозиторий:
-
-```
-sudo add-apt-repository universe
-sudo apt-get update
-```
-
-Устанавливаем Python 3 и его систему управления пакетами pip:
-
-```
-sudo apt install python3
-python3 --version
-
-sudo apt install -y python3-pip
-pip3 --version
-```
-
-Устанавливаем make:
-
-```
-sudo apt install make
-make --version
-```
-
-### Устанавливаем/обновляем NodeJS
-
-Скачиваем и устанавливаем LTS версию v16.15.0 [здесь](https://nodejs.org/dist/v16.15.0/node-v16.15.0-x64.msi).
-
-Перезагружаем ОС.
-
-### Устанавливаем Docker
-
-Скачиваем и устанавливаем Docker Desktop on Windows.
-
-Перезагружаем ОС.
-
-Docker-compose уже включён в Docker Desktop on Windows. Поэтому дополнительно его устанавливать не нужно.
-
-### Настраиваем Docker
-
-В трее на значке Docker нажимаем правой кнопкой мыши и во всплывающем меню выбираем пункт Settings.
-
-Переходим в Resources/WSL INTEGRATION и включаем на ней всё.
-
-На Experimental Features оставляем параметр «Use Docker Compose V2» выключенным - будет использоваться стабильная версия 1.29
-
-### Запускаем VS Code
-
-При первом запуске VS Code после установки Docker будет предложено установить расширение Docker для VS Code.
-
-Открываем проект Pizza (`Ctrl + K`, `Ctrl + O`).
-
-### Установка Frontend
-
-В терминале VS Code переключаемся на оболочку PowerShell.
-
-* Перейти в директорию `cd frontend`
-* Установить зависимости `npm ci`
-
-### Установка Backend
-
-В терминале VS Code в оболочке PowerShell:
-
-* Вернуться в корневой каталог проекта `cd ..`
-* Перейти в директорию `cd backend`
-* Установить зависимости `npm ci`
-* Вернуться в корневой каталог проекта `cd ..`
-
-### Docker установка проекта
-
-В терминале VS Code в оболочке PowerShell:
-
-* Выполнить команду `docker-compose build`
-
-В терминале VS Code переключаемся на оболочку Ubuntu-18.04 (WSL):
-
-* Запустить проект с помощью команды `make start_project`
-* Для остановки нажать `Ctrl + C`
-
-### Запуск и просмотр готовой вёрстки проекта
-
-В терминале VS Code переключаемся на оболочку PowerShell:
-
-* Находясь в корневом каталоге проекта, перейдите в директорию template: `cd template`
-* Установите зависимости, выполнив команду `npm ci`
-* Запустите проект командой `npm start`

@@ -4,16 +4,16 @@ sync:
 	npm init @novomanu/project-cli
 
 rebuild_backend:
-	docker-compose down -v
-	docker-compose run backend npm run rebuild
+	docker compose down -v
+	docker compose run backend npm run rebuild
 
 start_project:
-	docker-compose down -v
-	docker-compose up --build
+	docker compose down -v
+	docker compose up --build
 
 run_server:
-	docker-compose down -v
-	docker-compose up backend --build
+	docker compose down -v
+	docker compose up backend --build
 
 run_tests:
 	cd frontend; echo "...Starting frontend tests" && \
