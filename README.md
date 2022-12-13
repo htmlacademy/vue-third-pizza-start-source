@@ -7,9 +7,6 @@
 ## Docker установка
 https://docs.docker.com/get-docker/
 
-## Docker-compose установка
-https://docs.docker.com/compose/install/
-
 ## Node js установка
 Мы рекоммендуем использовать Node Version Manager для удобного управления версиями node.js
 
