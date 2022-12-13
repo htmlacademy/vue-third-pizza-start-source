@@ -1,3 +1,5 @@
 {
-  "templateId": "html-academy-vue3-pizza"
+  "template": {
+    "id": "html-academy-vue3-pizza"
+  }
 }
