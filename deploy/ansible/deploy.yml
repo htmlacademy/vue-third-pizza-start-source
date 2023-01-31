@@ -1,0 +1,34 @@
+- name: deploy
+  hosts: lo_eva08
+  gather_facts: no
+
+  vars:
+    project_name: vue-third-pizza-start-source
+    project_dir: "/usr/www/{{ project_name }}"
+
+  tasks:
+
+    - name: Create project dir
+      file:
+        path: "{{ project_dir }}"
+        state: directory
+
+    - name: Copy project
+      synchronize:
+        src: "{{ playbook_dir }}/../../"
+        dest: "{{ project_dir }}/"
+        delete: yes
+        recursive: yes
+
+    - name: Build docker image
+      shell: |
+        cd {{ project_dir }}/backend
+        docker build -t {{ project_name }}:latest . --no-cache
+
+    - name: Restart app and remove old image
+      shell: |
+        img=$(docker ps -a --filter "name=^{{ project_name }}$" --format "{{.Image}}")
+        cd {{ project_dir }}/deploy
+        docker-compose -p {{ project_name }} down
+        docker-compose -p {{ project_name }} up -d
+        docker rmi $img

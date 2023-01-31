@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  backend:
+    container_name: vue-third-pizza-start-source
+    image: vue-third-pizza-start-source:latest
+    restart: always
+    command: npm start
+    volumes:
+      - ../backend:/backend
+      - /backend/node_modules
+    ports:
+      - 4000:3000
+    networks:
+      - vue-third_network
+
+networks:
+  vue-third_network:
+    name: vue-third_network
+    external: true

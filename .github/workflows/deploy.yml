@@ -1,0 +1,17 @@
+name: deploy
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: htmlacademy_runner
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Deploy
+        run: |
+          cd deploy/ansible
+          ansible-playbook "deploy.yml"
