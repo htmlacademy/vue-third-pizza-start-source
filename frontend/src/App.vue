@@ -1,7 +1,12 @@
 <template>
   <div class="main__wrapper">
     <div class="main__header">
-      <img src="@/assets/img/logo.svg" width="300" height="47" alt="V!U!E! Pizza" />
+      <img
+        src="@/assets/img/logo.svg"
+        width="300"
+        height="47"
+        alt="V!U!E! Pizza"
+      />
     </div>
     <h1>Добро пожаловать!</h1>
     <p>
@@ -58,5 +63,4 @@ body {
     margin: 0 auto;
   }
 }
-
 </style>
