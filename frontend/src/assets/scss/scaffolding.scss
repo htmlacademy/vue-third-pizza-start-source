@@ -1,5 +1,3 @@
-@use "ds-system/ds.scss";
-
 body {
   display: flex;
   flex-direction: column;
@@ -7,8 +5,8 @@ body {
   min-width: 960px;
   min-height: 100vh;
 
-  color: ds.$black;
-  background-color: ds.$white;
+  color: $black;
+  background-color: $white;
 
   font-family: "Roboto", Arial, sans-serif;
   font-size: 14px;
@@ -24,11 +22,4 @@ a {
 img {
   max-width: 100%;
   height: auto;
-}
-
-#app {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
 }

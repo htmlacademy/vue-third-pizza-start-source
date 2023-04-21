@@ -1,0 +1,67 @@
+.content {
+  padding-top: 20px;
+}
+
+.content__wrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  width: 920px;
+  margin: 0 auto;
+  padding-right: 2.12%;
+  padding-bottom: 30px;
+  padding-left: 2.12%;
+}
+
+.content__dough {
+  width: 527px;
+  margin-top: 15px;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.content__diameter {
+  width: 373px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.content__ingredients {
+  width: 527px;
+  margin-top: 15px;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.content__pizza {
+  width: 373px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.content__constructor {
+  width: 315px;
+  margin-top: 25px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.content__result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 25px;
+
+  p {
+    @include b-s24-h28;
+
+    margin: 0;
+  }
+
+  button {
+    margin-left: 12px;
+    padding: 16px 45px;
+  }
+}
