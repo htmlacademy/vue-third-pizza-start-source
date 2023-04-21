@@ -1,0 +1,87 @@
+.filling {
+  @include r-s14-h16;
+
+  position: relative;
+
+  display: block;
+
+  padding-left: 36px;
+
+  &::before {
+    @include p_center-v;
+
+    display: block;
+
+    width: 32px;
+    height: 32px;
+
+    content: "";
+
+    border-radius: 50%;
+    background-color: $white;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80% 80%;
+
+  }
+
+  &--tomatoes::before {
+    background-image: url("../img/filling/tomatoes.svg");
+  }
+
+  &--ananas::before {
+    background-image: url("../img/filling/ananas.svg");
+  }
+
+  &--bacon::before {
+    background-image: url("../img/filling/bacon.svg");
+  }
+
+  &--blue_cheese::before {
+    background-image: url("../img/filling/blue_cheese.svg");
+  }
+
+  &--cheddar::before {
+    background-image: url("../img/filling/cheddar.svg");
+  }
+
+  &--chile::before {
+    background-image: url("../img/filling/chile.svg");
+  }
+
+  &--ham::before {
+    background-image: url("../img/filling/ham.svg");
+  }
+
+  &--jalapeno::before {
+    background-image: url("../img/filling/jalapeno.svg");
+  }
+
+  &--mozzarella::before {
+    background-image: url("../img/filling/mozzarella.svg");
+  }
+
+  &--mushrooms::before {
+    background-image: url("../img/filling/mushrooms.svg");
+  }
+
+  &--olives::before {
+    background-image: url("../img/filling/olives.svg");
+  }
+
+  &--onion::before {
+    background-image: url("../img/filling/onion.svg");
+  }
+
+  &--parmesan::before {
+    background-image: url("../img/filling/parmesan.svg");
+  }
+
+  &--salami::before {
+    background-image: url("../img/filling/salami.svg");
+  }
+
+  &--salmon::before {
+    background-image: url("../img/filling/salmon.svg");
+  }
+}

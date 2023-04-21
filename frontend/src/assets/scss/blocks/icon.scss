@@ -1,0 +1,29 @@
+.icon {
+  display: block;
+  overflow: hidden;
+
+  width: 32px;
+  height: 32px;
+
+  transition: 0.3s;
+
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  background-color: $white;
+  background-image: url("../img/edit.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &:hover {
+    box-shadow: $shadow-light;
+  }
+
+  &:active {
+    box-shadow: $shadow-large;
+  }
+
+  &:focus {
+    box-shadow: $shadow-regular;
+  }
+}
