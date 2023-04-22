@@ -1,4 +1,5 @@
 <template>
+  <layout-header />
   <main class="content">
     <form action="#" method="post">
       <div class="content__wrapper">
@@ -506,3 +507,7 @@
     </form>
   </main>
 </template>
+
+<script setup>
+import LayoutHeader from "@/layouts/LayoutHeader.vue";
+</script>
