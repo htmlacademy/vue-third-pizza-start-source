@@ -508,6 +508,14 @@
   </main>
 </template>
 
-<script setup>
+<script>
 import LayoutHeader from "@/layouts/LayoutHeader.vue";
+
+export default {
+  components: {
+    LayoutHeader,
+  },
+
+  setup() {},
+};
 </script>
