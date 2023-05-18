@@ -4,29 +4,7 @@
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
 
-        <div class="content__dough">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите тесто</h2>
-
-            <div class="sheet__content dough">
-              <label
-                v-for="dough in doughs"
-                :key="dough.id"
-                :class="`dough__input dough__input--${doughList[dough.id]}`"
-              >
-                <input
-                  type="radio"
-                  name="dough"
-                  :value="doughList[dough.id]"
-                  class="visually-hidden"
-                  checked
-                />
-                <b>{{ dough.name }}</b>
-                <span>{{ dough.description }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <dough-selector v-model="pizza.dough" :doughs="doughs" />
 
         <div class="content__diameter">
           <div class="sheet">
@@ -152,15 +130,29 @@
 </template>
 
 <script setup>
+import { reactive } from "vue";
+
 import doughs from "../mocks/dough.json";
 import ingredients from "../mocks/ingredients.json";
 import sauces from "../mocks/sauces.json";
 import sizes from "../mocks/sizes.json";
 
-import doughList from "../common/data/doughSizes";
+import DoughSelector from "../modules/constructor/DoughSelector.vue";
+
 import saucesList from "../common/data/sauces";
 import ingredientsList from "../common/data/ingredients";
 import sizesList from "../common/data/sizes";
+
+const pizza = reactive({
+  name: "",
+  dough: doughs[0].name,
+  // size: sizeItems[0].value,
+  // sauce: sauceItems[0].value,
+  // ingredients: ingredientItems.reduce((acc, item) => {
+  //   acc[item.value] = 0;
+  //   return acc;
+  // }, {}),
+});
 </script>
 
 <style lang="scss">
@@ -536,70 +528,6 @@ import sizesList from "../common/data/sizes";
     box-shadow: inset $shadow-regular;
   }
 }
-
-.dough__input {
-  position: relative;
-
-  margin-right: 8%;
-  margin-bottom: 20px;
-  padding-left: 50px;
-
-  cursor: pointer;
-
-  b {
-    @include r-s16-h19;
-
-    &::before {
-      @include p_center-v;
-
-      width: 36px;
-      height: 36px;
-
-      content: "";
-      transition: 0.3s;
-
-      border-radius: 50%;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-    }
-  }
-
-  span {
-    @include l-s11-h13;
-
-    display: block;
-  }
-
-  &--light {
-    b {
-      &::before {
-        background-image: url("@/assets/img/dough-light.svg");
-      }
-    }
-  }
-
-  &--large {
-    b {
-      &::before {
-        background-image: url("@/assets/img/dough-large.svg");
-      }
-    }
-  }
-
-  &:hover {
-    b::before {
-      box-shadow: $shadow-regular;
-    }
-  }
-
-  input {
-    &:checked + b::before {
-      box-shadow: $shadow-large;
-    }
-  }
-}
-
 
 .diameter__input {
   margin-right: 8.7%;
