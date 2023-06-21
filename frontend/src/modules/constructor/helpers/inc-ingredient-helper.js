@@ -1,4 +1,8 @@
 export const incIngredientHelper = (incEvt, ingredients) => {
+  if (incEvt.count > 3) {
+    return ingredients;
+  }
+
   let res = [...ingredients];
   const hasDuplicates = res.some(({ id }) => id === incEvt.ingredient.id);
 

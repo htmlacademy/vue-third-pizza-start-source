@@ -1,13 +1,5 @@
-const sauceTypes = [
-  {
-    name: "Томатный",
-    value: "tomato",
-  },
-  {
-    name: "Сливочный",
-    value: "creamy",
-  },
-];
+import { sauceTypes } from "@/modules/constructor/constants";
+
 export const normalizeSauces = (sauces) =>
   sauces.map((sauce) => ({
     ...sauce,

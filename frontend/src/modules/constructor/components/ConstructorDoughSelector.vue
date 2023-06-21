@@ -13,8 +13,13 @@
             name="dought"
             :value="dough.type"
             class="visually-hidden"
-            :checked="dough.type === modelValue"
-            @change="emit('update:modelValue', $event.target.value)"
+            :checked="dough.type === modelValue.type"
+            @change="
+              emit('update:modelValue', {
+                type: $event.target.value,
+                price: dough.price,
+              })
+            "
           />
           <b>{{ dough.name }}</b>
           <span>{{ dough.description }}</span>
@@ -33,7 +38,7 @@ import LayoutConstructorTitle from "@/layouts/LayoutConstructorTitle.vue";
 
 defineProps({
   modelValue: {
-    type: String,
+    type: Object,
     required: true,
   },
   doughs: {

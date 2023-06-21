@@ -13,30 +13,16 @@
             name="diameter"
             :value="size.type"
             class="visually-hidden"
-            :checked="size.type === modelValue"
-            @change="emit('update:modelValue', $event.target.value)"
+            :checked="size.type === modelValue.type"
+            @change="
+              emit('update:modelValue', {
+                type: $event.target.value,
+                multiplier: size.multiplier,
+              })
+            "
           />
           <span>{{ size.name }}</span>
         </label>
-        <!--        <label class="diameter__input diameter__input&#45;&#45;normal">-->
-        <!--          <input-->
-        <!--            type="radio"-->
-        <!--            name="diameter"-->
-        <!--            value="normal"-->
-        <!--            class="visually-hidden"-->
-        <!--            checked-->
-        <!--          />-->
-        <!--          <span>32 см</span>-->
-        <!--        </label>-->
-        <!--        <label class="diameter__input diameter__input&#45;&#45;big">-->
-        <!--          <input-->
-        <!--            type="radio"-->
-        <!--            name="diameter"-->
-        <!--            value="big"-->
-        <!--            class="visually-hidden"-->
-        <!--          />-->
-        <!--          <span>45 см</span>-->
-        <!--        </label>-->
       </template>
     </layout-constructor-title>
   </div>
@@ -49,7 +35,7 @@ import LayoutConstructorTitle from "@/layouts/LayoutConstructorTitle.vue";
 
 defineProps({
   modelValue: {
-    type: String,
+    type: Object,
     required: true,
   },
   sizes: {

@@ -20,7 +20,7 @@
       @dec-ingredient="decIngredient"
     />
 
-    <constructor-result />
+    <constructor-result v-model:name="pizza.name" :pizza="pizza" />
   </div>
 </template>
 <script>
@@ -49,9 +49,10 @@ const normalizedSauces = normalizeSauces(sauces);
 const normalizedIngredients = normalizeIngredients(ingredients);
 
 const pizza = reactive({
-  dough: normalizedDoughs[0].type,
-  size: normalizedSizes[1].type,
-  sauce: normalizedSauces[0].type,
+  dough: normalizedDoughs[0],
+  size: normalizedSizes[1],
+  sauce: normalizedSauces[0],
+  name: "",
   ingredients: [],
 });
 

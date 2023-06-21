@@ -1,13 +1,4 @@
-const doughTypes = [
-  {
-    name: "Тонкое",
-    value: "light",
-  },
-  {
-    name: "Толстое",
-    value: "large",
-  },
-];
+import { doughTypes } from "@/modules/constructor/constants";
 
 export const normalizeDoughs = (doughs) =>
   doughs.map((dough) => ({

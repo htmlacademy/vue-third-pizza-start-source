@@ -12,6 +12,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
+      :disabled="count > 2"
       @click="inc"
     >
       <span class="visually-hidden">Больше</span>

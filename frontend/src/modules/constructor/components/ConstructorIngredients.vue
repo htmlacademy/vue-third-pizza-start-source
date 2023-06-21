@@ -29,7 +29,7 @@ import ConstructorIngredientsFilling from "@/modules/constructor/components/Cons
 
 const props = defineProps({
   selectedSauce: {
-    type: String,
+    type: Object,
     required: true,
   },
   sauces: {
