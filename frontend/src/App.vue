@@ -2,16 +2,14 @@
   <view-home />
 </template>
 
-<script>
+<script setup>
 import ViewHome from "@/views/ViewHome.vue";
+</script>
 
-export default {
-  components: {
-    ViewHome,
-  },
-};
+<script>
+export default {};
 </script>
 
 <style lang="scss">
-@import "src/assets/scss/style";
+@import "@/assets/scss/style";
 </style>
