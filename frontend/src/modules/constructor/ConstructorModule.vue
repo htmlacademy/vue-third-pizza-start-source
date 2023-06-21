@@ -15,6 +15,9 @@
     <constructor-ingredients
       v-model:selected-sauce="pizza.sauce"
       :sauces="normalizedSauces"
+      :ingredients="normalizedIngredients"
+      @inc-ingredient="incIngredient"
+      @dec-ingredient="decIngredient"
     />
 
     <constructor-result />
@@ -27,6 +30,7 @@ export default {};
 import dougs from "@/mocks/dough.json";
 import sizes from "@/mocks/sizes.json";
 import sauces from "@/mocks/sauces.json";
+import ingredients from "@/mocks/ingredients.json";
 import { reactive, watch } from "vue";
 import ConstructorDoughSelector from "@/modules/constructor/components/ConstructorDoughSelector.vue";
 import ConstructorDiameterSelector from "@/modules/constructor/components/ConstructorDiameterSelector.vue";
@@ -35,18 +39,31 @@ import ConstructorResult from "@/modules/constructor/components/ConstructorResul
 import { normalizeDoughs } from "@/modules/constructor/helpers/normalize-doughs";
 import { normalizeSizes } from "@/modules/constructor/helpers/normalize-sizes";
 import { normalizeSauces } from "@/modules/constructor/helpers/normalize-sauces";
+import { normalizeIngredients } from "@/modules/constructor/helpers/normalize-ingredients";
+import { incIngredientHelper } from "@/modules/constructor/helpers/inc-ingredient-helper";
+import { decIngredientHelper } from "@/modules/constructor/helpers/dec-ingredient-helper";
 
 const normalizedDoughs = normalizeDoughs(dougs);
 const normalizedSizes = normalizeSizes(sizes);
 const normalizedSauces = normalizeSauces(sauces);
+const normalizedIngredients = normalizeIngredients(ingredients);
 
 const pizza = reactive({
   dough: normalizedDoughs[0].type,
   size: normalizedSizes[1].type,
   sauce: normalizedSauces[0].type,
+  ingredients: [],
 });
 
 watch(pizza, (newVal) => {
   console.log(newVal);
 });
+
+const incIngredient = (incEvt) => {
+  pizza.ingredients = incIngredientHelper(incEvt, pizza.ingredients);
+};
+
+const decIngredient = (decEvt) => {
+  pizza.ingredients = decIngredientHelper(decEvt, pizza.ingredients);
+};
 </script>

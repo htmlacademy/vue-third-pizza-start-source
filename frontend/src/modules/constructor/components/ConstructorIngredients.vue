@@ -8,7 +8,11 @@
           :sauces="sauces"
         />
 
-        <constructor-ingredients-filling />
+        <constructor-ingredients-filling
+          :ingredients="ingredients"
+          @inc="incIngredient"
+          @dec="decIngredient"
+        />
       </template>
     </layout-constructor-title>
   </div>
@@ -32,12 +36,28 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  ingredients: {
+    type: Array,
+    default: () => [],
+  },
 });
 
 const copiedSelectedSauce = ref(props.selectedSauce);
 
-const emit = defineEmits(["update:selectedSauce"]);
+const emit = defineEmits([
+  "update:selectedSauce",
+  "incIngredient",
+  "decIngredient",
+]);
 watch(copiedSelectedSauce, (newVal) => {
   emit("update:selectedSauce", newVal);
 });
+
+const incIngredient = (incEvt) => {
+  emit("incIngredient", incEvt);
+};
+
+const decIngredient = (decEvt) => {
+  emit("decIngredient", decEvt);
+};
 </script>
