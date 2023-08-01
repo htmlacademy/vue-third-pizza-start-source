@@ -1,7 +1,6 @@
 <template>
   <main class="content">
     <form action="#" method="post">
-
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
 
@@ -21,15 +20,13 @@
                   :value="item.value"
                   class="visually-hidden"
                   checked
-                >
-                  <img :src="getImage(item.image)" :alt="item.name" />
-                  <b>{{ item.name }}</b>
-                  <span>{{ item.description }}</span>
+                />
+                <img :src="getImage(item.image)" :alt="item.name" />
+                <b>{{ item.name }}</b>
+                <span>{{ item.description }}</span>
               </label>
             </div>
-
           </div>
-
         </div>
 
         <div class="content__diameter">
@@ -80,11 +77,7 @@
 
               <div class="ingredients__filling">
                 <p>Начинка:</p>
-<!--                id : 1-->
-<!--                image : "filling/mushrooms.svg"-->
-<!--                name : "Грибы"-->
-<!--                price : 33-->
-<!--                value : "mushrooms"-->
+
                 <ul class="ingredients__list">
                   <li
                     v-for="item in ingredientItems"
@@ -127,7 +120,11 @@
         <div class="content__pizza">
           <label class="input">
             <span class="visually-hidden">Название пиццы</span>
-            <input type="text" name="pizza_name" placeholder="Введите название пиццы">
+            <input
+              type="text"
+              name="pizza_name"
+              placeholder="Введите название пиццы"
+            />
           </label>
 
           <div class="content__constructor">
@@ -169,7 +166,7 @@ const doughItems = doughJSON.map(normalizeDough);
 const ingredientItems = ingredientsJSON.map(normalizeIngredients);
 const sauceItems = saucesJSON.map(normalizeSauces);
 const sizeItems = sizesJSON.map(normalizeSize);
-console.log(ingredientItems)
+
 const getImage = (image) => {
   return new URL(`../assets/img/${image}`, import.meta.url).href;
 };
