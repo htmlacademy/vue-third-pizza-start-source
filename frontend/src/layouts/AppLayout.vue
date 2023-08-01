@@ -3,16 +3,6 @@
   <slot />
 </template>
 
-<script>
+<script setup>
 import { AppHeader } from "@/layouts";
-export default {
-  name: "AppLayout",
-  components: {
-    AppHeader,
-  },
-}
 </script>
-
-<style scoped>
-
-</style>
