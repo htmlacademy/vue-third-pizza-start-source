@@ -1,7 +1,7 @@
-import { fileURLToPath, URL } from "url";
+import { fileURLToPath, URL } from "url"
 
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,9 +19,10 @@ export default defineConfig({
     port: 8080,
     proxy: {
       "/api": {
-        target: "http://backend:3000/",
+        target: "https://pizza.vue.htmlacademy.pro/",
+        changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
-  },
-});
+  }
+})
