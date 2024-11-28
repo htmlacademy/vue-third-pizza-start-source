@@ -9,21 +9,23 @@
             <h2 class="title title--small sheet__title">Выберите тесто</h2>
             <div class="sheet__content dough">
               <!-- список доступных вариантов теста -->
-              <template v-for="dough in doughSizeList">
-                <label :class="`dough__input dough__input--${dough.value}`">
-                  <input
-                    type="radio"
-                    name="dought"
-                    :value="dough.value"
-                    :data-price="dough.price"
-                    :data-image="dough.image"
-                    class="visually-hidden"
-                    checked
-                  />
-                  <b>{{ dough.name }}</b>
-                  <span>{{ dough.description }}</span>
-                </label>
-              </template>
+              <label
+                v-for="dough in doughSizeList"
+                :key="dough.id"
+                :class="`dough__input dough__input--${dough.value}`"
+              >
+                <input
+                  type="radio"
+                  name="dought"
+                  :value="dough.value"
+                  :data-price="dough.price"
+                  :data-image="dough.image"
+                  class="visually-hidden"
+                  checked
+                />
+                <b>{{ dough.name }}</b>
+                <span>{{ dough.description }}</span>
+              </label>
             </div>
           </div>
         </div>
@@ -33,22 +35,22 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
             <!-- список доступных размеров -->
             <div class="sheet__content diameter">
-              <template v-for="size in sizeList">
-                <label
-                  :class="`diameter__input diameter__input--${size.value}`"
-                >
-                  <input
-                    type="radio"
-                    name="diameter"
-                    :value="size.value"
-                    :data-id="size.id"
-                    :data-image="size.image"
-                    :data-multiplier="size.multiplier"
-                    class="visually-hidden"
-                  />
-                  <span>{{ size.name }}</span>
-                </label>
-              </template>
+              <label
+                v-for="size in sizeList"
+                :key="size.id"
+                :class="`diameter__input diameter__input--${size.value}`"
+              >
+                <input
+                  type="radio"
+                  name="diameter"
+                  :value="size.value"
+                  :data-id="size.id"
+                  :data-image="size.image"
+                  :data-multiplier="size.multiplier"
+                  class="visually-hidden"
+                />
+                <span>{{ size.name }}</span>
+              </label>
             </div>
           </div>
         </div>
@@ -63,19 +65,21 @@
               <div class="ingredients__sauce">
                 <p>Основной соус:</p>
                 <!-- список соусов -->
-                <template v-for="sauce in sauceList">
-                  <label class="radio ingredients__input">
-                    <input
-                      type="radio"
-                      name="sauce"
-                      :value="sauce.value"
-                      :data-id="sauce.id"
-                      :data-price="sauce.price"
-                      checked
-                    />
-                    <span>{{ sauce.name }}</span>
-                  </label>
-                </template>
+                <label
+                  v-for="sauce in sauceList"
+                  :key="sauce.id"
+                  class="radio ingredients__input"
+                >
+                  <input
+                    type="radio"
+                    name="sauce"
+                    :value="sauce.value"
+                    :data-id="sauce.id"
+                    :data-price="sauce.price"
+                    checked
+                  />
+                  <span>{{ sauce.name }}</span>
+                </label>
               </div>
 
               <div class="ingredients__filling">
@@ -83,39 +87,39 @@
 
                 <ul class="ingredients__list">
                   <!-- список начинок -->
-                  <template v-for="ingredient in ingredientList">
-                    <li
-                      class="ingredients__item"
-                      :data-price="ingredient.price"
-                      :data-image="ingredient.image"
-                    >
-                      <span :class="`filling filling--${ingredient.value}`">{{
-                        ingredient.name
-                      }}</span>
+                  <li
+                    v-for="ingredient in ingredientList"
+                    :key="ingredient.id"
+                    class="ingredients__item"
+                    :data-price="ingredient.price"
+                    :data-image="ingredient.image"
+                  >
+                    <span :class="`filling filling--${ingredient.value}`">{{
+                      ingredient.name
+                    }}</span>
 
-                      <div class="counter counter--orange ingredients__counter">
-                        <button
-                          type="button"
-                          class="counter__button counter__button--minus"
-                          disabled
-                        >
-                          <span class="visually-hidden">Меньше</span>
-                        </button>
-                        <input
-                          type="text"
-                          name="counter"
-                          class="counter__input"
-                          value="0"
-                        />
-                        <button
-                          type="button"
-                          class="counter__button counter__button--plus"
-                        >
-                          <span class="visually-hidden">Больше</span>
-                        </button>
-                      </div>
-                    </li>
-                  </template>
+                    <div class="counter counter--orange ingredients__counter">
+                      <button
+                        type="button"
+                        class="counter__button counter__button--minus"
+                        disabled
+                      >
+                        <span class="visually-hidden">Меньше</span>
+                      </button>
+                      <input
+                        type="text"
+                        name="counter"
+                        class="counter__input"
+                        value="0"
+                      />
+                      <button
+                        type="button"
+                        class="counter__button counter__button--plus"
+                      >
+                        <span class="visually-hidden">Больше</span>
+                      </button>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -155,7 +159,7 @@
 </template>
 
 <script setup>
-import dough from "@/mocks/dough.json";
+import doughs from "@/mocks/dough.json";
 import ingredients from "@/mocks/ingredients.json";
 import sauces from "@/mocks/sauces.json";
 import sizes from "@/mocks/sizes.json";
@@ -166,7 +170,7 @@ import {
   normalizeSize,
 } from "@/common/helpers/normalize.js";
 
-const doughSizeList = dough.map(normalizeDough);
+const doughSizeList = doughs.map(normalizeDough);
 const ingredientList = ingredients.map(normalizeIngredients);
 const sauceList = sauces.map(normalizeSauces);
 const sizeList = sizes.map(normalizeSize);
