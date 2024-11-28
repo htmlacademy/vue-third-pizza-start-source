@@ -9,24 +9,19 @@
             <h2 class="title title--small sheet__title">Выберите тесто</h2>
             <div class="sheet__content dough">
               <!-- список доступных вариантов теста -->
-              <template v-for="doughItem in dough">
-                <label
-                  :class="`dough__input dough__input--${getValueById(
-                    doughItem.id,
-                    doughSizeList,
-                  )}`"
-                >
+              <template v-for="dough in doughSizeList">
+                <label :class="`dough__input dough__input--${dough.value}`">
                   <input
                     type="radio"
                     name="dought"
-                    :value="getValueById(doughItem.id, doughSizeList)"
-                    :data-price="doughItem.price"
-                    :data-image="doughItem.image"
+                    :value="dough.value"
+                    :data-price="dough.price"
+                    :data-image="dough.image"
                     class="visually-hidden"
                     checked
                   />
-                  <b>{{ doughItem.name }}</b>
-                  <span>{{ doughItem.description }}</span>
+                  <b>{{ dough.name }}</b>
+                  <span>{{ dough.description }}</span>
                 </label>
               </template>
             </div>
@@ -38,17 +33,14 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
             <!-- список доступных размеров -->
             <div class="sheet__content diameter">
-              <template v-for="size in sizes">
+              <template v-for="size in sizeList">
                 <label
-                  :class="`diameter__input diameter__input--${getValueById(
-                    size.id,
-                    sizeList,
-                  )}`"
+                  :class="`diameter__input diameter__input--${size.value}`"
                 >
                   <input
                     type="radio"
                     name="diameter"
-                    :value="getValueById(size.id, sizeList)"
+                    :value="size.value"
                     :data-id="size.id"
                     :data-image="size.image"
                     :data-multiplier="size.multiplier"
@@ -71,12 +63,12 @@
               <div class="ingredients__sauce">
                 <p>Основной соус:</p>
                 <!-- список соусов -->
-                <template v-for="sauce in sauces">
+                <template v-for="sauce in sauceList">
                   <label class="radio ingredients__input">
                     <input
                       type="radio"
                       name="sauce"
-                      :value="getValueById(sauce.id, sauceList)"
+                      :value="sauce.value"
                       :data-id="sauce.id"
                       :data-price="sauce.price"
                       checked
@@ -91,19 +83,15 @@
 
                 <ul class="ingredients__list">
                   <!-- список начинок -->
-                  <template v-for="ingredient in ingredients">
+                  <template v-for="ingredient in ingredientList">
                     <li
                       class="ingredients__item"
                       :data-price="ingredient.price"
                       :data-image="ingredient.image"
                     >
-                      <span
-                        :class="`filling filling--${getValueById(
-                          ingredient.id,
-                          ingredientList,
-                        )}`"
-                        >{{ ingredient.name }}</span
-                      >
+                      <span :class="`filling filling--${ingredient.value}`">{{
+                        ingredient.name
+                      }}</span>
 
                       <div class="counter counter--orange ingredients__counter">
                         <button
@@ -171,12 +159,17 @@ import dough from "@/mocks/dough.json";
 import ingredients from "@/mocks/ingredients.json";
 import sauces from "@/mocks/sauces.json";
 import sizes from "@/mocks/sizes.json";
+import {
+  normalizeDough,
+  normalizeIngredients,
+  normalizeSauces,
+  normalizeSize,
+} from "@/common/helpers/normalize.js";
 
-import doughSizeList from "@/common/enum/doughSizes.js";
-import ingredientList from "@/common/enum/ingredients.js";
-import sauceList from "@/common/enum/sauces.js";
-import sizeList from "@/common/enum/sizes.js";
-import { getValueById } from "@/common/helpers.js";
+const doughSizeList = dough.map(normalizeDough);
+const ingredientList = ingredients.map(normalizeIngredients);
+const sauceList = sauces.map(normalizeSauces);
+const sizeList = sizes.map(normalizeSize);
 </script>
 
 <style lang="scss" scoped>
