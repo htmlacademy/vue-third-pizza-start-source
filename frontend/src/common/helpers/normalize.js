@@ -21,6 +21,7 @@ export const normalizeIngredients = (ingredient) => {
   return {
     ...ingredient,
     value: ingredients[ingredient.id],
+    count: 0,
   };
 };
 

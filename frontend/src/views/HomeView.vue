@@ -4,56 +4,15 @@
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
 
-        <div class="content__dough">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите тесто</h2>
-            <div class="sheet__content dough">
-              <!-- список доступных вариантов теста -->
-              <label
-                v-for="dough in doughSizeList"
-                :key="dough.id"
-                :class="`dough__input dough__input--${dough.value}`"
-              >
-                <input
-                  type="radio"
-                  name="dought"
-                  :value="dough.value"
-                  :data-price="dough.price"
-                  :data-image="dough.image"
-                  class="visually-hidden"
-                  checked
-                />
-                <b>{{ dough.name }}</b>
-                <span>{{ dough.description }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <dough-type-selection
+          v-model="order.dough"
+          :dough-types="doughTypeList"
+        ></dough-type-selection>
 
-        <div class="content__diameter">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите размер</h2>
-            <!-- список доступных размеров -->
-            <div class="sheet__content diameter">
-              <label
-                v-for="size in sizeList"
-                :key="size.id"
-                :class="`diameter__input diameter__input--${size.value}`"
-              >
-                <input
-                  type="radio"
-                  name="diameter"
-                  :value="size.value"
-                  :data-id="size.id"
-                  :data-image="size.image"
-                  :data-multiplier="size.multiplier"
-                  class="visually-hidden"
-                />
-                <span>{{ size.name }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <dough-size-selection
+          v-model="order.size"
+          :dough-size-list="doughSizeList"
+        ></dough-size-selection>
 
         <div class="content__ingredients">
           <div class="sheet">
@@ -62,66 +21,15 @@
             </h2>
 
             <div class="sheet__content ingredients">
-              <div class="ingredients__sauce">
-                <p>Основной соус:</p>
-                <!-- список соусов -->
-                <label
-                  v-for="sauce in sauceList"
-                  :key="sauce.id"
-                  class="radio ingredients__input"
-                >
-                  <input
-                    type="radio"
-                    name="sauce"
-                    :value="sauce.value"
-                    :data-id="sauce.id"
-                    :data-price="sauce.price"
-                    checked
-                  />
-                  <span>{{ sauce.name }}</span>
-                </label>
-              </div>
+              <sauce-type-selection
+                v-model="order.sauce"
+                :sauce-types="sauceList"
+              ></sauce-type-selection>
 
-              <div class="ingredients__filling">
-                <p>Начинка:</p>
-
-                <ul class="ingredients__list">
-                  <!-- список начинок -->
-                  <li
-                    v-for="ingredient in ingredientList"
-                    :key="ingredient.id"
-                    class="ingredients__item"
-                    :data-price="ingredient.price"
-                    :data-image="ingredient.image"
-                  >
-                    <span :class="`filling filling--${ingredient.value}`">{{
-                      ingredient.name
-                    }}</span>
-
-                    <div class="counter counter--orange ingredients__counter">
-                      <button
-                        type="button"
-                        class="counter__button counter__button--minus"
-                        disabled
-                      >
-                        <span class="visually-hidden">Меньше</span>
-                      </button>
-                      <input
-                        type="text"
-                        name="counter"
-                        class="counter__input"
-                        value="0"
-                      />
-                      <button
-                        type="button"
-                        class="counter__button counter__button--plus"
-                      >
-                        <span class="visually-hidden">Больше</span>
-                      </button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              <pizza-ingridients-selection
+                v-model="order.ingredients"
+                :ingredients="ingredientList"
+              ></pizza-ingridients-selection>
             </div>
           </div>
         </div>
@@ -136,16 +44,8 @@
             />
           </label>
 
-          <!--            //todo конструктор -->
-          <div class="content__constructor">
-            <div class="pizza pizza--foundation--big-tomato">
-              <div class="pizza__wrapper">
-                <div class="pizza__filling pizza__filling--ananas"></div>
-                <div class="pizza__filling pizza__filling--bacon"></div>
-                <div class="pizza__filling pizza__filling--cheddar"></div>
-              </div>
-            </div>
-          </div>
+          <!-- конструктор пиццы -->
+          <pizza-constructor-view :order="order"></pizza-constructor-view>
 
           <!--            //todo расчет суммы -->
           <div class="content__result">
@@ -169,11 +69,31 @@ import {
   normalizeSauces,
   normalizeSize,
 } from "@/common/helpers/normalize.js";
+import DoughTypeSelection from "@/modules/constructor/DoughTypeSelection.vue";
+import { reactive, ref } from "vue";
+import DoughSizeSelection from "@/modules/constructor/DoughSizeSelection.vue";
+import SauceTypeSelection from "@/modules/constructor/SauceTypeSelection.vue";
+import PizzaConstructorView from "@/modules/constructor/PizzaConstructorView.vue";
+import PizzaIngridientsSelection from "@/modules/constructor/PizzaIngridientsSelection.vue";
 
-const doughSizeList = doughs.map(normalizeDough);
+const props = defineProps({
+  sum: {
+    type: Number,
+    default: 0,
+  },
+  order: {
+    type: Object,
+    required: true,
+  },
+});
+
+const order = reactive(props.order);
+const sum = ref(props.sum);
+
+const doughTypeList = doughs.map(normalizeDough);
 const ingredientList = ingredients.map(normalizeIngredients);
 const sauceList = sauces.map(normalizeSauces);
-const sizeList = sizes.map(normalizeSize);
+const doughSizeList = sizes.map(normalizeSize);
 </script>
 
 <style lang="scss" scoped>
