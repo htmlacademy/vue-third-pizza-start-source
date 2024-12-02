@@ -57,8 +57,6 @@ function change(itemValue) {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
-@import "@/assets/scss/layout/sheet";
-@import "@/assets/scss/blocks/title";
 @import "@/assets/scss/blocks/diameter";
 
 .content__diameter {

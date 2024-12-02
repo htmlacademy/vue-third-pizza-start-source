@@ -1,5 +1,5 @@
 <template>
-  <div class="counter counter--orange ingredients__counter">
+  <div class="counter" :class="props.cssClass">
     <counter-button
       css-class="counter__button--minus"
       label="Меньше"
@@ -8,7 +8,7 @@
     ></counter-button>
     <counter-value v-model="count" />
     <counter-button
-      css-class="counter__button--plus"
+      :css-class="`counter__button--plus counter__button--${props.color}`"
       label="Больше"
       :disabled="count >= MAX_INGREDIENTS_COUNT"
       @click="increment"
@@ -25,6 +25,21 @@ import {
   MIN_INGREDIENTS_COUNT,
 } from "@/common/constants";
 const emit = defineEmits(["update:modelValue"]);
+
+const props = defineProps({
+  cssClass: {
+    type: String,
+    default: "",
+  },
+  color: {
+    type: String,
+    default: "orange",
+  },
+  modelValue: {
+    type: Number,
+    required: true,
+  },
+});
 
 const count = computed({
   get() {
@@ -44,20 +59,8 @@ const increment = () => {
   if (count.value >= MAX_INGREDIENTS_COUNT) return;
   count.value = count.value + 1;
 };
-
-const props = defineProps({
-  modelValue: {
-    type: Number,
-    required: true,
-  },
-});
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
 @import "@/assets/scss/blocks/counter";
-.ingredients__counter {
-  width: 54px;
-  margin-top: 10px;
-  margin-left: 36px;
-}
 </style>

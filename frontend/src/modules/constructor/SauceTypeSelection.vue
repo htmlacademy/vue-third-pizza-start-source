@@ -51,7 +51,6 @@ function change(itemValue) {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
-@import "@/assets/scss/blocks/radio";
 
 .ingredients__sauce {
   display: flex;

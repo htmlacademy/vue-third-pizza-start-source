@@ -20,7 +20,11 @@
               {{ ingredient.name }}
             </span>
           </app-drag>
-          <counter-wrapper v-model="ingredient.count"></counter-wrapper>
+          <app-counter
+            v-model="ingredient.count"
+            class="ingredients__counter"
+            color="green"
+          ></app-counter>
         </li>
       </ul>
     </app-drop>
@@ -30,8 +34,8 @@
 import { computed } from "vue";
 import AppDrag from "@/common/components/AppDrag.vue";
 import AppDrop from "@/common/components/AppDrop.vue";
-import CounterWrapper from "@/modules/counter/CounterWrapper.vue";
 import { MAX_INGREDIENTS_COUNT } from "@/common/constants";
+import AppCounter from "@/modules/counter/AppCounter.vue";
 
 const props = defineProps({
   modelValue: {
@@ -79,5 +83,11 @@ const ingredients = computed({
   min-height: 40px;
   margin-right: 17px;
   margin-bottom: 35px;
+}
+
+.ingredients__counter {
+  width: 54px;
+  margin-top: 10px;
+  margin-left: 36px;
 }
 </style>
