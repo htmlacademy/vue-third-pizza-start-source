@@ -26,10 +26,10 @@
                 :sauce-types="sauceList"
               ></sauce-type-selection>
 
-              <PizzaIngredientsSelection
+              <pizza-ingredients-selection
                 v-model="order.ingredients"
                 :ingredients="ingredientList"
-              ></PizzaIngredientsSelection>
+              ></pizza-ingredients-selection>
             </div>
           </div>
         </div>
