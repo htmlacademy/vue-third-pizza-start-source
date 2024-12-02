@@ -3,12 +3,14 @@
     <counter-button
       css-class="counter__button--minus"
       label="Меньше"
+      :disabled="count < 1"
       @click="decrement"
     ></counter-button>
     <counter-value v-model="count" />
     <counter-button
       css-class="counter__button--plus"
       label="Больше"
+      :disabled="count >= 3"
       @click="increment"
     ></counter-button>
   </div>
@@ -41,7 +43,7 @@ const increment = () => {
 
 const props = defineProps({
   modelValue: {
-    type: Array,
+    type: Number,
     required: true,
   },
 });

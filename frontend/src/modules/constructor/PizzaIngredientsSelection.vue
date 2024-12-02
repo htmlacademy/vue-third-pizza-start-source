@@ -21,11 +21,11 @@
   </div>
 </template>
 <script setup>
-import { computed, reactive, watch } from "vue";
+import { computed } from "vue";
 import CounterWrapper from "@/modules/counter/CounterWrapper.vue";
 
 const props = defineProps({
-  ingredients: {
+  modelValue: {
     type: Array,
     required: true,
   },
@@ -33,19 +33,14 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const ingredients = reactive(props.ingredients);
-
-const selectedIngredients = computed(() => {
-  return ingredients.filter((ingredient) => ingredient.count > 0);
-});
-
-watch(
-  selectedIngredients,
-  (newValue) => {
-    emit("update:modelValue", newValue);
+const ingredients = computed({
+  get() {
+    return props.modelValue;
   },
-  { deep: true, immediate: true },
-);
+  set(value) {
+    emit("update:modelValue", value);
+  },
+});
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";

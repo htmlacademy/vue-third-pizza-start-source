@@ -11,7 +11,7 @@
       </a>
     </div>
     <div class="header__cart">
-      <a href="#">{{ sum }} ₽</a>
+      <a href="#">{{ props.sum }} ₽</a>
     </div>
     <div v-if="!isAuthorised" class="header__user">
       <a href="#" class="header__login">
@@ -53,7 +53,6 @@ const props = defineProps({
     default: 0,
   },
 });
-const sum = ref(props.sum);
 
 const isAuthorised = ref(false);
 </script>

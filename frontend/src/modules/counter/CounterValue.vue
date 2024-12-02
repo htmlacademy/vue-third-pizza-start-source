@@ -7,7 +7,7 @@ import { computed } from "vue";
 
 const props = defineProps({
   modelValue: {
-    type: Array,
+    type: Number,
     required: true,
   },
 });

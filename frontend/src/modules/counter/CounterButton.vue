@@ -1,5 +1,10 @@
 <template>
-  <button type="button" class="counter__button" :class="props.cssClass">
+  <button
+    type="button"
+    class="counter__button"
+    :class="props.cssClass"
+    :disabled="props.disabled"
+  >
     <span class="visually-hidden">{{ props.label }}</span>
   </button>
 </template>
@@ -13,6 +18,10 @@ const props = defineProps({
   label: {
     type: String,
     default: "",
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

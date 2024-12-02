@@ -45,14 +45,6 @@ const selectedSauce = computed({
   },
 });
 
-if (
-  !selectedSauce.value &&
-  props.sauceTypes.length &&
-  props.sauceTypes[0].value
-) {
-  selectedSauce.value = props.sauceTypes[0].value;
-}
-
 function change(itemValue) {
   selectedSauce.value = itemValue.value;
   //todo передача суммы выбранного элемента для изменения суммы всего заказа

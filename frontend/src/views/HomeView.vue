@@ -26,23 +26,22 @@
                 :sauce-types="sauceList"
               ></sauce-type-selection>
 
-              <pizza-ingridients-selection
+              <PizzaIngredientsSelection
                 v-model="order.ingredients"
                 :ingredients="ingredientList"
-              ></pizza-ingridients-selection>
+              ></PizzaIngredientsSelection>
             </div>
           </div>
         </div>
 
         <div class="content__pizza">
-          <label class="input">
-            <span class="visually-hidden">Название пиццы</span>
-            <input
-              type="text"
-              name="pizza_name"
-              placeholder="Введите название пиццы"
-            />
-          </label>
+          <!-- название пиццы -->
+          <app-input
+            v-model="order.name"
+            label="Название пиццы"
+            placeholder="Введите название пиццы"
+            name="pizza_name"
+          ></app-input>
 
           <!-- конструктор пиццы -->
           <pizza-constructor-view :order="order"></pizza-constructor-view>
@@ -50,7 +49,12 @@
           <!--            //todo расчет суммы -->
           <div class="content__result">
             <p>Итого: 0 ₽</p>
-            <button type="button" class="button" disabled>Готовьте!</button>
+            <app-button
+              v-model="order.name"
+              label="Готовьте!"
+              name="order_submit"
+              :disabled="!order.isReady"
+            ></app-button>
           </div>
         </div>
       </div>
@@ -74,7 +78,9 @@ import { reactive } from "vue";
 import DoughSizeSelection from "@/modules/constructor/DoughSizeSelection.vue";
 import SauceTypeSelection from "@/modules/constructor/SauceTypeSelection.vue";
 import PizzaConstructorView from "@/modules/constructor/PizzaConstructorView.vue";
-import PizzaIngridientsSelection from "@/modules/constructor/PizzaIngridientsSelection.vue";
+import PizzaIngredientsSelection from "@/modules/constructor/PizzaIngredientsSelection.vue";
+import AppInput from "@/common/components/AppInput.vue";
+import AppButton from "@/common/components/AppButton.vue";
 
 const props = defineProps({
   sum: {
@@ -93,6 +99,11 @@ const doughTypeList = doughs.map(normalizeDough);
 const ingredientList = ingredients.map(normalizeIngredients);
 const sauceList = sauces.map(normalizeSauces);
 const doughSizeList = sizes.map(normalizeSize);
+
+if (!props.order.sauce && sauceList.length && sauceList[0].value) {
+  order.sauce = sauceList[0].value;
+}
+order.ingredients = ingredientList;
 </script>
 
 <style lang="scss" scoped>
@@ -100,13 +111,4 @@ const doughSizeList = sizes.map(normalizeSize);
 @import "@/assets/scss/layout/content";
 @import "@/assets/scss/layout/sheet";
 @import "@/assets/scss/blocks/title";
-@import "@/assets/scss/blocks/dough";
-@import "@/assets/scss/blocks/diameter";
-@import "@/assets/scss/blocks/ingredients";
-@import "@/assets/scss/blocks/input";
-@import "@/assets/scss/blocks/radio";
-@import "@/assets/scss/blocks/button";
-@import "@/assets/scss/blocks/counter";
-@import "@/assets/scss/blocks/filling";
-@import "@/assets/scss/blocks/pizza";
 </style>

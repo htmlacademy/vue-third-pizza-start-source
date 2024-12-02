@@ -55,14 +55,6 @@ function change(itemValue) {
   selectedSize.value = itemValue.value;
   //todo передача множителя для изменения суммы
 }
-
-if (
-  !selectedSize.value &&
-  props.doughSizeList.length &&
-  props.doughSizeList[0].value
-) {
-  selectedSize.value = props.doughSizeList[0].value;
-}
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
