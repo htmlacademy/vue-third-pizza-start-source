@@ -1,9 +1,19 @@
 <template>
-  <input type="text" name="counter" class="counter__input" :value="count" />
+  <input
+    type="text"
+    name="counter"
+    class="counter__input"
+    :value="count"
+    @input="updateCount($event.target.value)"
+  />
 </template>
 
 <script setup>
 import { computed } from "vue";
+import {
+  MAX_INGREDIENTS_COUNT,
+  MIN_INGREDIENTS_COUNT,
+} from "@/common/constants";
 
 const props = defineProps({
   modelValue: {
@@ -20,6 +30,12 @@ const count = computed({
     emit("update:modelValue", value);
   },
 });
+
+const updateCount = (value) => {
+  value = Math.min(MAX_INGREDIENTS_COUNT, Number(value));
+  value = Math.max(MIN_INGREDIENTS_COUNT, Number(value));
+  count.value = value;
+};
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";

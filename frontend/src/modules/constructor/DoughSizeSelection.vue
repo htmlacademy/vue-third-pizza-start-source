@@ -40,7 +40,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "drop"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const selectedSize = computed({
   get() {
@@ -53,7 +53,6 @@ const selectedSize = computed({
 
 function change(itemValue) {
   selectedSize.value = itemValue.value;
-  //todo передача множителя для изменения суммы
 }
 </script>
 <style lang="scss" scoped>

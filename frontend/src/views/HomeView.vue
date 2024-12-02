@@ -53,7 +53,9 @@
               v-model="order.name"
               label="Готовьте!"
               name="order_submit"
-              :disabled="!order.isReady"
+              :disabled="
+                selectedIngredients.length === 0 || order.name.length === 0
+              "
             ></app-button>
           </div>
         </div>
@@ -74,7 +76,7 @@ import {
   normalizeSize,
 } from "@/common/helpers/normalize.js";
 import DoughTypeSelection from "@/modules/constructor/DoughTypeSelection.vue";
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import DoughSizeSelection from "@/modules/constructor/DoughSizeSelection.vue";
 import SauceTypeSelection from "@/modules/constructor/SauceTypeSelection.vue";
 import PizzaConstructorView from "@/modules/constructor/PizzaConstructorView.vue";
@@ -100,10 +102,20 @@ const ingredientList = ingredients.map(normalizeIngredients);
 const sauceList = sauces.map(normalizeSauces);
 const doughSizeList = sizes.map(normalizeSize);
 
+const selectedIngredients = computed(() => {
+  return order.ingredients.filter((ingredient) => ingredient.count > 0);
+});
+
+order.ingredients = ingredientList;
 if (!props.order.sauce && sauceList.length && sauceList[0].value) {
   order.sauce = sauceList[0].value;
 }
-order.ingredients = ingredientList;
+if (!props.order.dough && doughTypeList.length && doughTypeList[0].value) {
+  order.dough = doughTypeList[0].value;
+}
+if (!props.order.size && doughSizeList.length && doughSizeList[0].value) {
+  order.size = doughSizeList[0].value;
+}
 </script>
 
 <style lang="scss" scoped>

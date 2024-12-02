@@ -34,7 +34,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "drop"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const selectedSauce = computed({
   get() {
@@ -47,7 +47,6 @@ const selectedSauce = computed({
 
 function change(itemValue) {
   selectedSauce.value = itemValue.value;
-  //todo передача суммы выбранного элемента для изменения суммы всего заказа
 }
 </script>
 <style lang="scss" scoped>

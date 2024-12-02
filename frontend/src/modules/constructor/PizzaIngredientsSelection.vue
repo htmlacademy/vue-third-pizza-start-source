@@ -2,27 +2,36 @@
   <div class="ingredients__filling">
     <p>Начинка:</p>
 
-    <ul class="ingredients__list">
-      <!-- список начинок -->
-      <li
-        v-for="ingredient in ingredients"
-        :key="ingredient.id"
-        class="ingredients__item"
-        :data-price="ingredient.price"
-        :data-image="ingredient.image"
-      >
-        <span :class="`filling filling--${ingredient.value}`">{{
-          ingredient.name
-        }}</span>
-
-        <counter-wrapper v-model="ingredient.count"></counter-wrapper>
-      </li>
-    </ul>
+    <app-drop @drop="$emit('drop', $event)">
+      <ul class="ingredients__list">
+        <!-- список начинок -->
+        <li
+          v-for="ingredient in ingredients"
+          :key="ingredient.id"
+          class="ingredients__item"
+          :data-price="ingredient.price"
+          :data-image="ingredient.image"
+        >
+          <app-drag
+            :transfer-data="ingredient"
+            :draggable="ingredient.count < MAX_INGREDIENTS_COUNT"
+          >
+            <span :class="`filling filling--${ingredient.value}`">
+              {{ ingredient.name }}
+            </span>
+          </app-drag>
+          <counter-wrapper v-model="ingredient.count"></counter-wrapper>
+        </li>
+      </ul>
+    </app-drop>
   </div>
 </template>
 <script setup>
 import { computed } from "vue";
+import AppDrag from "@/common/components/AppDrag.vue";
+import AppDrop from "@/common/components/AppDrop.vue";
 import CounterWrapper from "@/modules/counter/CounterWrapper.vue";
+import { MAX_INGREDIENTS_COUNT } from "@/common/constants";
 
 const props = defineProps({
   modelValue: {
@@ -31,7 +40,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "drop"]);
 
 const ingredients = computed({
   get() {

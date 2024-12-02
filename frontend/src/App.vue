@@ -12,7 +12,6 @@ import { reactive } from "vue";
 const state = reactive({
   order: {
     name: "",
-    isReady: false,
     dough: "light",
     size: "big",
     sauce: "tomato",
