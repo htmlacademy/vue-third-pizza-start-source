@@ -70,7 +70,7 @@ import {
   normalizeSize,
 } from "@/common/helpers/normalize.js";
 import DoughTypeSelection from "@/modules/constructor/DoughTypeSelection.vue";
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 import DoughSizeSelection from "@/modules/constructor/DoughSizeSelection.vue";
 import SauceTypeSelection from "@/modules/constructor/SauceTypeSelection.vue";
 import PizzaConstructorView from "@/modules/constructor/PizzaConstructorView.vue";
@@ -88,7 +88,6 @@ const props = defineProps({
 });
 
 const order = reactive(props.order);
-const sum = ref(props.sum);
 
 const doughTypeList = doughs.map(normalizeDough);
 const ingredientList = ingredients.map(normalizeIngredients);
