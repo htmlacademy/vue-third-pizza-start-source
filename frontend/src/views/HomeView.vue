@@ -41,21 +41,21 @@
             label="Название пиццы"
             placeholder="Введите название пиццы"
             name="pizza_name"
+            :is-hidden-label="true"
           ></app-input>
 
           <!-- конструктор пиццы -->
           <pizza-constructor-view :order="order"></pizza-constructor-view>
 
-          <!--            //todo расчет суммы -->
           <div class="content__result">
-            <p>Итого: 0 ₽</p>
+            <p>Итого: {{ sum }} ₽</p>
             <app-button
-              v-model="order.name"
               label="Готовьте!"
               name="order_submit"
               :disabled="
                 selectedIngredients.length === 0 || order.name.length === 0
               "
+              @click="submitOrder"
             ></app-button>
           </div>
         </div>
@@ -83,7 +83,9 @@ import PizzaConstructorView from "@/modules/constructor/PizzaConstructorView.vue
 import PizzaIngredientsSelection from "@/modules/constructor/PizzaIngredientsSelection.vue";
 import AppInput from "@/common/components/AppInput.vue";
 import AppButton from "@/common/components/AppButton.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const emit = defineEmits(["update:sum"]);
 const props = defineProps({
   sum: {
@@ -152,6 +154,11 @@ watch(
   },
   { immediate: true },
 );
+
+function submitOrder() {
+  //todo логика оформления заказа
+  router.push({ name: "BasketView" });
+}
 </script>
 
 <style lang="scss" scoped>

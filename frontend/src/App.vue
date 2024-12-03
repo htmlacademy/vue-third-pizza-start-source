@@ -1,12 +1,11 @@
 <template>
   <app-layout :sum="state.sum">
-    <home-view v-model:order="state.order" v-model:sum="state.sum" />
+    <router-view v-model:order="state.order" v-model:sum="state.sum" />
   </app-layout>
 </template>
 
 <script setup>
 import { AppLayout } from "@/layouts";
-import { HomeView } from "@/views";
 import { reactive } from "vue";
 
 const state = reactive({

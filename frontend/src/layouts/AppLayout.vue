@@ -1,17 +1,36 @@
 <template>
-  <div>
-    <app-header :sum="props.sum" />
+  <component :is="layout">
     <slot />
-  </div>
+  </component>
 </template>
 
 <script setup>
-const props = defineProps({
-  sum: {
-    type: Number,
-    default: 0,
-  },
-});
+import { shallowRef, watch } from "vue";
+import { useRoute } from "vue-router";
+import AppLayoutDefault from "./AppLayoutDefault.vue";
 
-import AppHeader from "./AppHeader.vue";
+const route = useRoute();
+const layout = shallowRef(null);
+
+watch(
+  () => route.meta,
+  async (meta) => {
+    try {
+      if (meta.layout) {
+        const component = await import(`./${meta.layout}.vue`);
+        layout.value = component?.default || AppLayoutDefault;
+      } else {
+        layout.value = AppLayoutDefault;
+      }
+    } catch (e) {
+      console.error(
+        "Динамический шаблон не найден. Установлен шаблон по-умолчанию.",
+        e,
+      );
+      layout.value = AppLayoutDefault;
+    }
+  },
+);
 </script>
+
+<style lang="scss" scoped></style>

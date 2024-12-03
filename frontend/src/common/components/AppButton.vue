@@ -2,6 +2,11 @@
   <button
     type="button"
     class="button"
+    :class="{
+      'button--border': props.hasBorder,
+      'button--arrow': props.hasArrow,
+      'button--transparent': props.isTransparent,
+    }"
     :disabled="props.disabled"
     :name="props.name"
   >
@@ -21,6 +26,18 @@ const props = defineProps({
   name: {
     type: String,
     required: true,
+  },
+  hasBorder: {
+    type: Boolean,
+    default: false,
+  },
+  hasArrow: {
+    type: Boolean,
+    default: false,
+  },
+  isTransparent: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

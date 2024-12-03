@@ -1,12 +1,15 @@
 <template>
-  <label class="input">
-    <span class="visually-hidden">{{ props.label }}</span>
+  <label class="input" :class="{ 'input--big-label': props.isBigLabel }">
+    <span :class="{ 'visually-hidden': props.isHiddenLabel }">
+      {{ props.label }}
+    </span>
     <input
       v-model="inputValue"
       :type="props.type"
       :name="props.name"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
+      :required="props.required"
     />
   </label>
 </template>
@@ -26,7 +29,19 @@ const props = defineProps({
     type: String,
     default: "text",
   },
+  isBigLabel: {
+    type: Boolean,
+    default: false,
+  },
+  isHiddenLabel: {
+    type: Boolean,
+    default: false,
+  },
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  required: {
     type: Boolean,
     default: false,
   },
