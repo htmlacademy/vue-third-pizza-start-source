@@ -3,12 +3,14 @@
     <counter-button
       css-class="counter__button--minus"
       label="Меньше"
+      :disabled="count <= MIN_INGREDIENTS_COUNT"
       @click="decrement"
     ></counter-button>
     <counter-value v-model="count" />
     <counter-button
       css-class="counter__button--plus"
       label="Больше"
+      :disabled="count >= MAX_INGREDIENTS_COUNT"
       @click="increment"
     ></counter-button>
   </div>
@@ -18,6 +20,10 @@
 import CounterValue from "@/modules/counter/CounterValue.vue";
 import CounterButton from "@/modules/counter/CounterButton.vue";
 import { computed } from "vue";
+import {
+  MAX_INGREDIENTS_COUNT,
+  MIN_INGREDIENTS_COUNT,
+} from "@/common/constants";
 const emit = defineEmits(["update:modelValue"]);
 
 const count = computed({
@@ -30,18 +36,18 @@ const count = computed({
 });
 
 const decrement = () => {
-  if (count.value <= 0) return;
+  if (count.value <= MIN_INGREDIENTS_COUNT) return;
   count.value = count.value - 1;
 };
 
 const increment = () => {
-  if (count.value >= 3) return;
+  if (count.value >= MAX_INGREDIENTS_COUNT) return;
   count.value = count.value + 1;
 };
 
 const props = defineProps({
   modelValue: {
-    type: Array,
+    type: Number,
     required: true,
   },
 });

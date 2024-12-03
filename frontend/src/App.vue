@@ -1,6 +1,6 @@
 <template>
   <app-layout :sum="state.sum">
-    <home-view :order="state.order" :sum="state.sum" />
+    <home-view v-model:order="state.order" v-model:sum="state.sum" />
   </app-layout>
 </template>
 
@@ -11,9 +11,10 @@ import { reactive } from "vue";
 
 const state = reactive({
   order: {
-    dough: 'light',
-    size: 'big',
-    sauce: 'tomato',
+    name: "",
+    dough: "light",
+    size: "big",
+    sauce: "tomato",
     ingredients: [],
   },
   sum: 0,

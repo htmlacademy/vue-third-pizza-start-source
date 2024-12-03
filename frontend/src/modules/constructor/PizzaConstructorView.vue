@@ -1,22 +1,34 @@
 <template>
   <div class="content__constructor">
-    <div
-      :class="`pizza pizza--foundation--${order.size || ''}-${
-        order.sauce || ''
-      }`"
-    >
-      <div class="pizza__wrapper">
-        <div
-          v-for="ingredient in order.ingredients"
-          :key="ingredient.id"
-          :class="`pizza__filling pizza__filling--${ingredient.value}`"
-        ></div>
+    <app-drop class="column" @drop="addIngredient">
+      <div
+        :class="`pizza pizza--foundation--${order.size || ''}-${
+          order.sauce || ''
+        }`"
+      >
+        <div class="pizza__wrapper">
+          <template
+            v-for="ingredient in order.ingredients"
+            :key="ingredient.id"
+          >
+            <div
+              v-for="(ingredientCount, key) in ingredient.count"
+              :key="key"
+              :class="`pizza__filling pizza__filling--${
+                ingredient.value
+              } ${getExtraClass(ingredientCount)}`"
+            ></div>
+          </template>
+        </div>
       </div>
-    </div>
+    </app-drop>
   </div>
 </template>
 <script setup>
 import { reactive } from "vue";
+import AppDrop from "@/common/components/AppDrop.vue";
+
+const emit = defineEmits(["drop"]);
 
 const props = defineProps({
   order: {
@@ -26,6 +38,24 @@ const props = defineProps({
 });
 
 const order = reactive(props.order);
+
+function addIngredient(ingredient) {
+  emit("drop", ingredient);
+  increaseCount(ingredient.value);
+}
+
+const increaseCount = (value) => {
+  const ingredient = order.ingredients.find((item) => item.value === value);
+  if (ingredient) {
+    ingredient.count++;
+  }
+};
+
+function getExtraClass(count) {
+  if (count === 1) return "pizza__filling--second";
+  if (count === 2) return "pizza__filling--third";
+  return "";
+}
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
