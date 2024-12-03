@@ -22,4 +22,13 @@
 <style lang="scss">
 @import "@/assets/scss/ds-system/ds.scss";
 @import "@/assets/scss/layout/layout.scss";
+
+.layout__button {
+  $self: &;
+  margin-top: 40px;
+
+  button[type="button"] {
+    padding: 12px 23px;
+  }
+}
 </style>

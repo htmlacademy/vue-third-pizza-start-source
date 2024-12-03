@@ -1,8 +1,8 @@
 <template>
   <div class="sign-form">
-    <a href="#" class="close close--white">
+    <router-link :to="{ name: 'HomeView' }" class="close close--white">
       <span class="visually-hidden">Закрыть форму авторизации</span>
-    </a>
+    </router-link>
     <div class="sign-form__title">
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
@@ -51,4 +51,5 @@ function auth() {
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
 @import "@/assets/scss/layout/sign-form.scss";
+@import "@/assets/scss/blocks/close.scss";
 </style>

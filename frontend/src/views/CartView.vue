@@ -48,6 +48,7 @@
               v-model="pizza.count"
               class="cart-list__counter"
               color="orange"
+              :max-count="99"
             ></app-counter>
 
             <div class="cart-list__price">
@@ -81,6 +82,7 @@
                 v-model="additionalItem.count"
                 class="cart-list__counter"
                 color="orange"
+                :max-count="99"
               ></app-counter>
 
               <div class="additional-list__price">
@@ -154,7 +156,7 @@
         Перейти к конструктору<br />чтоб собрать ещё одну пиццу
       </p>
       <div class="footer__price">
-        <b>Итого: {{ order.price }} ₽</b>
+        <b>Итого: {{ sum }} ₽</b>
       </div>
 
       <div class="footer__submit">
@@ -191,7 +193,16 @@ const props = defineProps({
 
 const order = reactive(props.order);
 const pizza = {};
-const additionalItems = [];
+const additionalItems = reactive([
+  {
+    id: 1,
+    count: 0,
+  },
+  {
+    id: 2,
+    count: 0,
+  },
+]);
 const addressList = [
   {
     value: 1,
@@ -206,11 +217,6 @@ const addressList = [
     label: "Дом",
   },
 ];
-
-function returnToConstructor() {
-  //todo логика создания новой пиццы
-  router.push({ name: "HomeView" });
-}
 
 function submitOrder() {
   //todo логика оформления заказа

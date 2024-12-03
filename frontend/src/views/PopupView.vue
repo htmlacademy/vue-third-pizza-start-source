@@ -8,7 +8,9 @@
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <a href="#" class="button" @click="closePopup">Отлично, я жду!</a>
+      <router-link :to="{ name: 'OrdersView' }" class="button">
+        Отлично, я жду!
+      </router-link>
     </div>
   </div>
 </template>

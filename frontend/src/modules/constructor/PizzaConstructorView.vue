@@ -9,7 +9,7 @@
         <div class="pizza__wrapper">
           <template
             v-for="ingredient in order.ingredients"
-            :key="ingredient.id"
+            :key="generateUniqId()"
           >
             <div
               v-for="(ingredientCount, key) in ingredient.count"
@@ -27,6 +27,7 @@
 <script setup>
 import { reactive } from "vue";
 import AppDrop from "@/common/components/AppDrop.vue";
+import { generateUniqId } from "@/common/helpers/helpers";
 
 const emit = defineEmits(["drop"]);
 

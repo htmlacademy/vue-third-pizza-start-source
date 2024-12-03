@@ -3,14 +3,18 @@
     <counter-button
       css-class="counter__button--minus"
       label="Меньше"
-      :disabled="count <= MIN_INGREDIENTS_COUNT"
+      :disabled="count <= props.minCount"
       @click="decrement"
     ></counter-button>
-    <counter-value v-model="count" />
+    <counter-value
+      v-model="count"
+      :min="props.minCount"
+      :max="props.maxCount"
+    />
     <counter-button
       :css-class="`counter__button--plus counter__button--${props.color}`"
       label="Больше"
-      :disabled="count >= MAX_INGREDIENTS_COUNT"
+      :disabled="count >= props.maxCount"
       @click="increment"
     ></counter-button>
   </div>
@@ -35,6 +39,14 @@ const props = defineProps({
     type: String,
     default: "orange",
   },
+  minCount: {
+    type: Number,
+    default: MIN_INGREDIENTS_COUNT,
+  },
+  maxCount: {
+    type: Number,
+    default: MAX_INGREDIENTS_COUNT,
+  },
   modelValue: {
     type: Number,
     required: true,
@@ -51,12 +63,12 @@ const count = computed({
 });
 
 const decrement = () => {
-  if (count.value <= MIN_INGREDIENTS_COUNT) return;
+  if (count.value <= props.minCount) return;
   count.value = count.value - 1;
 };
 
 const increment = () => {
-  if (count.value >= MAX_INGREDIENTS_COUNT) return;
+  if (count.value >= props.maxCount) return;
   count.value = count.value + 1;
 };
 </script>

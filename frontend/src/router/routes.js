@@ -8,7 +8,7 @@ export default [
   {
     path: "/basket",
     name: "BasketView",
-    component: () => import("../views/BasketView.vue"),
+    component: () => import("../views/CartView.vue"),
     meta: { layout: "AppLayoutUser" },
   },
   {
@@ -19,7 +19,7 @@ export default [
   {
     path: "/auth",
     name: "AuthView",
-    component: () => import("../views/AuthView.vue"),
+    component: () => import("../views/LoginView.vue"),
   },
   {
     path: "/user",

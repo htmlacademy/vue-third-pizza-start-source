@@ -1,11 +1,5 @@
 <template>
-  <input
-    type="text"
-    name="counter"
-    class="counter__input"
-    :value="count"
-    @input="updateCount($event.target.value)"
-  />
+  <input v-model="count" type="text" name="counter" class="counter__input" />
 </template>
 
 <script setup>
@@ -20,6 +14,14 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  minCount: {
+    type: Number,
+    default: MIN_INGREDIENTS_COUNT,
+  },
+  maxCount: {
+    type: Number,
+    default: MAX_INGREDIENTS_COUNT,
+  },
 });
 const emit = defineEmits(["update:modelValue"]);
 const count = computed({
@@ -27,15 +29,11 @@ const count = computed({
     return props.modelValue;
   },
   set(value) {
+    value = Math.min(props.minCount, Number(value));
+    value = Math.max(props.maxCount, Number(value));
     emit("update:modelValue", value);
   },
 });
-
-const updateCount = (value) => {
-  value = Math.min(MAX_INGREDIENTS_COUNT, Number(value));
-  value = Math.max(MIN_INGREDIENTS_COUNT, Number(value));
-  count.value = value;
-};
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";

@@ -1,25 +1,30 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <a href="/" class="logo">
+      <router-link :to="{ name: 'HomeView' }" class="logo">
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
           width="90"
           height="40"
         />
-      </a>
+      </router-link>
     </div>
     <div class="header__cart">
-      <a href="#">{{ props.sum }} ₽</a>
+      <router-link :to="{ name: 'BasketView' }">
+        {{ props.sum || 0 }} ₽
+      </router-link>
     </div>
     <div v-if="!isAuthorised" class="header__user">
-      <a href="#" class="header__login">
+      <router-link :to="{ name: 'AuthView' }" class="header__login">
         <span>Войти</span>
-      </a>
+      </router-link>
+      <router-link :to="{ name: 'HomeView' }" class="close close--white">
+        <span class="visually-hidden">Закрыть форму авторизации</span>
+      </router-link>
     </div>
     <div v-else class="header__user">
-      <a href="#">
+      <router-link :to="{ name: 'ProfileView' }" class="logo">
         <picture>
           <source
             type="image/webp"
@@ -37,10 +42,10 @@
           />
         </picture>
         <span>Василий Ложкин</span>
-      </a>
-      <a href="#" class="header__logout">
+      </router-link>
+      <router-link :to="{ name: 'HomeView' }" class="header__logout">
         <span>Выйти</span>
-      </a>
+      </router-link>
     </div>
   </header>
 </template>
