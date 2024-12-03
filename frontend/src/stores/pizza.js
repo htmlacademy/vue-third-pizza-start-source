@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
+import { calculatePizzaPrice } from "@/common/helpers/pizza-price";
 
 export const usePizzaStore = defineStore("pizza", () => {
   const id = ref(null);
@@ -9,6 +10,19 @@ export const usePizzaStore = defineStore("pizza", () => {
   const sauceId = ref(0);
   const ingredients = reactive([]);
 
+  const sum = computed(() => {
+    return calculatePizzaPrice({
+      doughId: doughId.value,
+      sizeId: sizeId.value,
+      sauceId: sauceId.value,
+      ingredients,
+    });
+  });
+
+  const selectedIngredients = computed(() => {
+    return ingredients.filter((ingredient) => ingredient.quantity > 0);
+  });
+
   return {
     id,
     name,
@@ -16,5 +30,7 @@ export const usePizzaStore = defineStore("pizza", () => {
     sizeId,
     sauceId,
     ingredients,
+    sum,
+    selectedIngredients,
   };
 });
