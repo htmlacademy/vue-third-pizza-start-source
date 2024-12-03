@@ -11,7 +11,7 @@
       </a>
     </div>
     <div class="header__cart">
-      <a href="#">0 ₽</a>
+      <a href="#">{{ props.sum }} ₽</a>
     </div>
     <div v-if="!isAuthorised" class="header__user">
       <a href="#" class="header__login">
@@ -47,6 +47,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+const props = defineProps({
+  sum: {
+    type: Number,
+    default: 0,
+  },
+});
 
 const isAuthorised = ref(false);
 </script>
