@@ -1,15 +1,19 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 
 export const useCartStore = defineStore("cart", () => {
   const sum = ref(0);
 
   const additionalItems = ref([]);
   const pizzaList = ref([]);
+  const address = reactive({
+    street: "",
+    house: "",
+    apartment: "",
+    comment: "",
+  });
   const receiveType = ref(0);
   const phone = ref("");
-  const street = ref("");
-  const house = ref("");
 
   return {
     sum,
@@ -17,7 +21,6 @@ export const useCartStore = defineStore("cart", () => {
     pizzaList,
     receiveType,
     phone,
-    street,
-    house,
+    address,
   };
 });
