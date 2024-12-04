@@ -1,5 +1,8 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .select {
-  @include r-s16-h19;
+  @include ds-typography.r-s16-h19;
 
   display: block;
 
@@ -10,11 +13,11 @@
   cursor: pointer;
   transition: 0.3s;
 
-  color: $black;
-  border: 1px solid $purple-400;
+  color: ds-colors.$black;
+  border: 1px solid ds-colors.$purple-400;
   border-radius: 8px;
   outline: none;
-  background-color: $silver-100;
+  background-color: ds-colors.$silver-100;
   background-image: url("../img/select.svg");
   background-repeat: no-repeat;
   background-position: right 8px center;
@@ -24,10 +27,10 @@
   appearance: none;
 
   &:hover {
-    border-color: $orange-100;
+    border-color: ds-colors.$orange-100;
   }
 
   &:focus {
-    border-color: $green-500;
+    border-color: ds-colors.$green-500;
   }
 }

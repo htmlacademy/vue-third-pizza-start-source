@@ -1,5 +1,9 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .additional-list {
-  @include clear-list;
+  @include m_clear-list.clear-list;
 
   display: flex;
   flex-wrap: wrap;
@@ -30,7 +34,7 @@
   }
 
   span {
-    @include b-s14-h16;
+    @include ds-typography.b-s14-h16;
 
     display: inline;
 
@@ -50,7 +54,7 @@
   padding-right: 15px;
   padding-left: 15px;
 
-  border-top: 1px solid rgba($green-500, 0.1);
+  border-top: 1px solid rgba(ds-colors.$green-500, 0.1);
 }
 
 .additional-list__counter {
@@ -59,5 +63,5 @@
 }
 
 .additional-list__price {
-  @include b-s16-h19;
+  @include ds-typography.b-s16-h19;
 }

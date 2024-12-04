@@ -1,3 +1,6 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-shadows";
+
 .icon {
   display: block;
   overflow: hidden;
@@ -10,20 +13,20 @@
   border: none;
   border-radius: 50%;
   outline: none;
-  background-color: $white;
+  background-color: ds-colors.$white;
   background-image: url("../img/edit.svg");
   background-repeat: no-repeat;
   background-position: center;
 
   &:hover {
-    box-shadow: $shadow-light;
+    box-shadow: ds-shadows.$shadow-light;
   }
 
   &:active {
-    box-shadow: $shadow-large;
+    box-shadow: ds-shadows.$shadow-large;
   }
 
   &:focus {
-    box-shadow: $shadow-regular;
+    box-shadow: ds-shadows.$shadow-regular;
   }
 }

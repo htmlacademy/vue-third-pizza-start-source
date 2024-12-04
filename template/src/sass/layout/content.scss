@@ -1,3 +1,5 @@
+@use "../ds-system/ds-typography";
+
 .content {
   padding-top: 20px;
 }
@@ -55,7 +57,7 @@
   margin-top: 25px;
 
   p {
-    @include b-s24-h28;
+    @include ds-typography.b-s24-h28;
 
     margin: 0;
   }

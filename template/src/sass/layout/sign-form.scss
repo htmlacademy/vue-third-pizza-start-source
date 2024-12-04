@@ -1,5 +1,9 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-shadows";
+@use "../mixins/m_center";
+
 .sign-form {
-  @include pf_center-all;
+  @include m_center.pf_center-all;
 
   z-index: 10;
 
@@ -12,8 +16,8 @@
   padding-bottom: 32px;
   padding-left: 32px;
 
-  background: $white url("../img/popup.svg") no-repeat center top;
-  box-shadow: $shadow-light;
+  background: ds-colors.$white url("../img/popup.svg") no-repeat center top;
+  box-shadow: ds-shadows.$shadow-light;
 
   button {
     margin: 0 auto;

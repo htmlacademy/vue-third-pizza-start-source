@@ -1,3 +1,6 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .layout__sidebar {
   position: fixed;
   z-index: 2;
@@ -7,7 +10,7 @@
   width: 180px;
   height: 100%;
 
-  background-color: rgba($green-500, 0.05);
+  background-color: rgba(ds-colors.$green-500, 0.05);
 }
 
 .layout__logo {
@@ -17,7 +20,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
 
-  background-color: $green-500;
+  background-color: ds-colors.$green-500;
 
   img {
     display: block;
@@ -27,7 +30,7 @@
 }
 
 .layout__link {
-  @include b-s14-h16;
+  @include ds-typography.b-s14-h16;
 
   display: block;
 
@@ -35,18 +38,18 @@
 
   transition: 0.3s;
 
-  color: $black;
+  color: ds-colors.$black;
 
   &--active {
-    background-color: rgba($green-500, 0.1);
+    background-color: rgba(ds-colors.$green-500, 0.1);
   }
 
   &:hover {
-    background-color: rgba($green-500, 0.2);
+    background-color: rgba(ds-colors.$green-500, 0.2);
   }
 
   &:active {
-    color: rgba($black, 0.5);
+    color: rgba(ds-colors.$black, 0.5);
   }
 }
 

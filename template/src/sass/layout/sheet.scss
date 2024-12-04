@@ -1,9 +1,12 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-shadows";
+
 .sheet {
   padding-top: 15px;
 
   border-radius: 8px;
-  background-color: $white;
-  box-shadow: $shadow-light;
+  background-color: ds-colors.$white;
+  box-shadow: ds-shadows.$shadow-light;
 }
 
 .sheet__title {
@@ -21,5 +24,5 @@
   padding-right: 18px;
   padding-left: 18px;
 
-  border-top: 1px solid rgba($green-500, 0.1);
+  border-top: 1px solid rgba(ds-colors.$green-500, 0.1);
 }
