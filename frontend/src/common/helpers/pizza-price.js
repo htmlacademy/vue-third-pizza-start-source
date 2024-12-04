@@ -8,11 +8,12 @@ export function calculatePizzaPrice(pizza) {
 
   const ingredientsPrice = pizza.ingredients
     .filter((item) => item.quantity > 0)
-    .reduce(
-      (acc, item) =>
-        acc + dataStore.getPriceByIngredientId(item.id) * item.quantity,
-      0,
-    );
+    .reduce((acc, item) => {
+      return (
+        acc +
+        dataStore.getPriceByIngredientId(item.ingredientId) * item.quantity
+      );
+    }, 0);
 
   return (doughPrice + saucePrice + ingredientsPrice) * sizeMultiplier;
 }

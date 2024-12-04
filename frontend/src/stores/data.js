@@ -10,14 +10,23 @@ import {
   normalizeSauces,
   normalizeSize,
 } from "@/common/helpers/normalize";
+import { shallowRef } from "vue";
 
 /**  Доступные типы теста, размеры, ингредиенты и соусы. */
 export const useDataStore = defineStore("data", () => {
-  const ingredients = ingredientsData.map(normalizeIngredients);
-  const doughTypeList = doughs.map(normalizeDough);
-  const sauceList = sauces.map(normalizeSauces);
-  const doughSizeList = sizes.map(normalizeSize);
-  const misc = miscData;
+  const ingredients = shallowRef([]);
+  const doughTypeList = shallowRef([]);
+  const sauceList = shallowRef([]);
+  const doughSizeList = shallowRef([]);
+  const misc = shallowRef([]);
+
+  function init() {
+    ingredients.value = ingredientsData.map(normalizeIngredients);
+    doughTypeList.value = doughs.map(normalizeDough);
+    sauceList.value = sauces.map(normalizeSauces);
+    doughSizeList.value = sizes.map(normalizeSize);
+    misc.value = miscData;
+  }
 
   function getPriceByDoughId(doughId) {
     return getDoughById(doughId)?.price || 0;
@@ -40,26 +49,27 @@ export const useDataStore = defineStore("data", () => {
   }
 
   function getDoughById(doughId) {
-    return this.doughTypeList.find((item) => item.id === doughId) || null;
+    return doughTypeList.value.find((item) => item.id === doughId) || null;
   }
 
   function getSauceById(sauceId) {
-    return this.sauceList.find((item) => item.id === sauceId) || null;
+    return sauceList.value.find((item) => item.id === sauceId) || null;
   }
 
   function getSizeById(sizeId) {
-    return this.doughSizeList.find((item) => item.id === sizeId) || null;
+    return doughSizeList.value.find((item) => item.id === sizeId) || null;
   }
 
   function getIngredientById(ingredientId) {
-    return this.ingredients.find((item) => item.id === ingredientId) || null;
+    return ingredients.value.find((item) => item.id === ingredientId) || null;
   }
 
   function getMiscById(miscId) {
-    return this.misc.find((item) => item.id === miscId) || null;
+    return misc.value.find((item) => item.id === miscId) || null;
   }
 
   return {
+    init,
     ingredients,
     doughTypeList,
     sauceList,

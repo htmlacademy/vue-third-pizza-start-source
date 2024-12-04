@@ -16,7 +16,7 @@
             :data-id="size.id"
             :data-image="size.image"
             :data-multiplier="size.multiplier"
-            :checked="selectedSize === size.value"
+            :checked="selectedSize === size.id"
             class="visually-hidden"
             @change="change(size)"
           />
@@ -35,7 +35,7 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: String,
+    type: Number,
     required: true,
   },
 });
@@ -52,7 +52,7 @@ const selectedSize = computed({
 });
 
 function change(itemValue) {
-  selectedSize.value = itemValue.value;
+  selectedSize.value = itemValue.id;
 }
 </script>
 <style lang="scss" scoped>

@@ -1,60 +1,51 @@
 <template>
   <div class="content__constructor">
     <app-drop class="column" @drop="addIngredient">
-      <div
-        :class="`pizza pizza--foundation--${order.size || ''}-${
-          order.sauce || ''
-        }`"
-      >
+      <div :class="`pizza pizza--foundation--${props.size}-${props.sauce}`">
         <div class="pizza__wrapper">
-          <template
-            v-for="ingredient in order.ingredients"
-            :key="generateUniqId()"
-          >
-            <div
-              v-for="(ingredientCount, key) in ingredient.count"
-              :key="key"
-              :class="`pizza__filling pizza__filling--${
-                ingredient.value
-              } ${getExtraClass(ingredientCount)}`"
-            ></div>
-          </template>
+          <div
+            v-for="ingredient in props.ingredients"
+            :key="ingredient.id"
+            :class="`pizza__filling pizza__filling--${
+              ingredient.value
+            } ${getExtraClass(ingredient.count)}`"
+          ></div>
         </div>
       </div>
     </app-drop>
   </div>
 </template>
 <script setup>
-import { reactive } from "vue";
 import AppDrop from "@/common/components/AppDrop.vue";
-import { generateUniqId } from "@/common/helpers/helpers";
+import { usePizzaStore } from "@/stores";
 
 const emit = defineEmits(["drop"]);
 
 const props = defineProps({
-  order: {
-    type: Object,
+  size: {
+    type: String,
+    default: "",
+  },
+  sauce: {
+    type: String,
+    default: "",
+  },
+  ingredients: {
+    type: Array,
     required: true,
   },
 });
 
-const order = reactive(props.order);
+const pizzaStore = usePizzaStore();
 
 function addIngredient(ingredient) {
   emit("drop", ingredient);
-  increaseCount(ingredient.value);
+  pizzaStore.incrementIngredientCount(ingredient.id);
 }
 
-const increaseCount = (value) => {
-  const ingredient = order.ingredients.find((item) => item.value === value);
-  if (ingredient) {
-    ingredient.count++;
-  }
-};
-
 function getExtraClass(count) {
-  if (count === 1) return "pizza__filling--second";
-  if (count === 2) return "pizza__filling--third";
+  if (count === 2) return "pizza__filling--second";
+  if (count === 3) return "pizza__filling--third";
   return "";
 }
 </script>

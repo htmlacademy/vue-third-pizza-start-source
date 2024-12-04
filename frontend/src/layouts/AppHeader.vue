@@ -12,7 +12,7 @@
     </div>
     <div class="header__cart">
       <router-link :to="{ name: 'BasketView' }">
-        {{ props.sum || 0 }} ₽
+        {{ pizzaStore.priceSum || cartStore.sum }} ₽
       </router-link>
     </div>
     <div v-if="!isAuthorised" class="header__user">
@@ -52,12 +52,11 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-const props = defineProps({
-  sum: {
-    type: Number,
-    default: 0,
-  },
-});
+
+import { useCartStore } from "../stores/cart.js";
+import { usePizzaStore } from "../stores/pizza.js";
+const cartStore = useCartStore();
+const pizzaStore = usePizzaStore();
 
 const isAuthorised = ref(false);
 </script>

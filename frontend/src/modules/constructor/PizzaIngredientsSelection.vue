@@ -6,7 +6,7 @@
       <ul class="ingredients__list">
         <!-- список начинок -->
         <li
-          v-for="ingredient in ingredients"
+          v-for="ingredient in props.ingredients"
           :key="ingredient.id"
           class="ingredients__item"
           :data-price="ingredient.price"
@@ -14,24 +14,29 @@
         >
           <app-drag
             :transfer-data="ingredient"
-            :draggable="ingredient.count < MAX_INGREDIENTS_COUNT"
+            :draggable="ingredientsCount[ingredient.id] < MAX_INGREDIENTS_COUNT"
           >
             <span :class="`filling filling--${ingredient.value}`">
               {{ ingredient.name }}
             </span>
           </app-drag>
+          <!-- //todo не понравилось, как получилось обновление игредиентов. Видимо нужно упрощать структуру данных в store пиццы -->
           <app-counter
-            v-model="ingredient.count"
+            :model-value="ingredientsCount[ingredient.id]"
             class="ingredients__counter"
             color="green"
+            @update:modelValue="
+              (value) => updateIngredientCount(ingredient.id, value)
+            "
           ></app-counter>
         </li>
       </ul>
     </app-drop>
   </div>
 </template>
+
 <script setup>
-import { computed } from "vue";
+import { reactive } from "vue";
 import AppDrag from "@/common/components/AppDrag.vue";
 import AppDrop from "@/common/components/AppDrop.vue";
 import { MAX_INGREDIENTS_COUNT } from "@/common/constants";
@@ -42,19 +47,36 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  count: {
+    type: Object,
+    required: true,
+  },
+  ingredients: {
+    type: Array,
+    required: true,
+  },
 });
 
 const emit = defineEmits(["update:modelValue", "drop"]);
 
-const ingredients = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit("update:modelValue", value);
-  },
-});
+const ingredientsCount = reactive({ ...props.count });
+
+const ingredientList = reactive(props.modelValue);
+
+function updateIngredientCount(ingredientId, value) {
+  ingredientsCount[ingredientId] = value;
+
+  ingredientList.value = Object.entries(ingredientsCount)
+    .filter(([id, count]) => count > 0)
+    .map(([id, count]) => ({
+      ingredientId: Number(id),
+      quantity: count,
+    }));
+
+  emit("update:modelValue", ingredientList.value);
+}
 </script>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
 @import "@/assets/scss/blocks/filling";

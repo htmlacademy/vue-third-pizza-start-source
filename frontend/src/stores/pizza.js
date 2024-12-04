@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
-import { computed, reactive, ref } from "vue";
+import { computed, ref } from "vue";
 import { calculatePizzaPrice } from "@/common/helpers/pizza-price";
 import { useDataStore } from "@/stores/data";
 import { ingredientsQuantity } from "@/common/helpers/ingridients-count";
 
 export const usePizzaStore = defineStore("pizza", () => {
   const defaultState = {
-    id: null,
+    index: null,
     name: "",
     doughId: 0,
     sizeId: 0,
@@ -14,25 +14,25 @@ export const usePizzaStore = defineStore("pizza", () => {
     ingredients: [],
   };
 
-  const id = ref(defaultState.id);
+  const index = ref(defaultState.index);
   const name = ref(defaultState.name);
   const doughId = ref(defaultState.doughId);
   const sizeId = ref(defaultState.sizeId);
   const sauceId = ref(defaultState.sauceId);
-  const ingredients = reactive(defaultState.ingredients);
+  const ingredients = ref(defaultState.ingredients);
   const dataStore = useDataStore();
 
-  const sum = computed(() => {
+  const priceSum = computed(() => {
     return calculatePizzaPrice({
       doughId: doughId.value,
       sizeId: sizeId.value,
       sauceId: sauceId.value,
-      ingredients,
+      ingredients: ingredients.value,
     });
   });
 
   const haveIngredients = computed(() => {
-    return ingredients.length > 0;
+    return ingredients.value.length > 0;
   });
 
   const dough = computed(() => {
@@ -44,66 +44,78 @@ export const usePizzaStore = defineStore("pizza", () => {
   });
 
   const sauce = computed(() => {
-    return dataStore.getSauceById(sizeId.value) ?? dataStore.sauceList[0];
+    return dataStore.getSauceById(sauceId.value) ?? dataStore.sauceList[0];
   });
 
   const ingredientsData = computed(() => {
-    const ingredientsIds = ingredients.map((i) => i.ingredientId);
+    const ingredientsIds = ingredients.value.map((i) => i.ingredientId);
     return dataStore.ingredients
       .filter((ingredient) => ingredientsIds.includes(ingredient.id))
       .map((ingr) => {
         return {
           ...ingr,
           quantity:
-            ingredients.find((item) => item.ingredientId === ingr.id)
+            ingredients.value.find((item) => item.ingredientId === ingr.id)
               ?.quantity ?? 0,
         };
       });
   });
 
   const ingredientsWithCount = computed(() => {
-    return ingredientsQuantity(this);
+    return ingredientsQuantity({ ingredients: ingredients.value });
   });
 
-  function setId(id) {
-    this.id = id;
+  function init() {
+    if (!doughId.value) {
+      doughId.value = dough.value.id;
+    }
+    if (!sizeId.value) {
+      sizeId.value = size.value.id;
+    }
+    if (!sauceId.value) {
+      sauceId.value = sauce.value.id;
+    }
   }
 
-  function setName(name) {
-    this.name = name;
+  function setIndex(newIndex) {
+    index.value = newIndex;
   }
 
-  function setDoughId(id) {
-    this.doughId = id;
+  function setName(newName) {
+    name.value = newName;
   }
 
-  function setSizeId(id) {
-    this.sizeId = id;
+  function setDoughId(newDoughId) {
+    doughId.value = newDoughId;
   }
 
-  function setSauceId(id) {
-    this.sauceId = id;
+  function setSizeId(newSizeId) {
+    sizeId.value = newSizeId;
   }
 
-  function setIngredients(ingredients) {
-    this.ingredients = ingredients;
+  function setSauceId(newSauceId) {
+    sauceId.value = newSauceId;
+  }
+
+  function setIngredients(newIngredients) {
+    ingredients.value = newIngredients;
   }
 
   function setPizza(pizza) {
-    this.id = pizza.id;
-    this.name = pizza.name;
-    this.doughId = pizza.doughId;
-    this.sizeId = pizza.sizeId;
-    this.sauceId = pizza.sauceId;
-    this.ingredients = pizza.ingredients;
+    index.value = pizza.index;
+    name.value = pizza.name;
+    doughId.value = pizza.doughId;
+    sizeId.value = pizza.sizeId;
+    sauceId.value = pizza.sauceId;
+    ingredients.value = pizza.ingredients;
   }
 
   function addIngredient(ingredientId) {
-    this.ingredients.push({ ingredientId, quantity: 1 });
+    ingredients.value.push({ ingredientId, quantity: 1 });
   }
 
   function updateIngredientCount(ingredientId, count) {
-    const ingredientIndex = ingredients.findIndex(
+    const ingredientIndex = ingredients.value.findIndex(
       (item) => item.ingredientId === ingredientId,
     );
 
@@ -115,14 +127,28 @@ export const usePizzaStore = defineStore("pizza", () => {
     }
 
     if (count === 0) {
-      this.ingredients.splice(ingredientIndex, 1);
+      ingredients.value.splice(ingredientIndex, 1);
       return;
     }
-    this.ingredients[ingredientIndex].quantity = count;
+
+    ingredients.value[ingredientIndex].quantity = count;
+  }
+
+  function incrementIngredientCount(ingredientId) {
+    const ingredientIndex = ingredients.value.findIndex(
+      (item) => item.ingredientId === ingredientId,
+    );
+
+    if (ingredientIndex === -1) {
+      addIngredient(ingredientId);
+      return;
+    }
+
+    ingredients.value[ingredientIndex].quantity++;
   }
 
   function reset() {
-    id.value = defaultState.id;
+    index.value = defaultState.index;
     name.value = defaultState.name;
     doughId.value = defaultState.doughId;
     sizeId.value = defaultState.sizeId;
@@ -131,8 +157,8 @@ export const usePizzaStore = defineStore("pizza", () => {
   }
 
   return {
-    id,
-    setId,
+    index,
+    setIndex,
     name,
     setName,
     doughId,
@@ -147,12 +173,14 @@ export const usePizzaStore = defineStore("pizza", () => {
     ingredients,
     ingredientsWithCount,
     ingredientsData,
+    incrementIngredientCount,
     addIngredient,
     setIngredients,
-    sum,
+    priceSum,
     haveIngredients,
     reset,
     updateIngredientCount,
     setPizza,
+    init,
   };
 });

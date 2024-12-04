@@ -49,7 +49,7 @@ const props = defineProps({
   },
   modelValue: {
     type: Number,
-    required: true,
+    default: 0,
   },
 });
 

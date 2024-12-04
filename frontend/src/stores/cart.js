@@ -37,23 +37,24 @@ export const useCartStore = defineStore("cart", () => {
         ingredients: dataStore.ingredients.filter((i) =>
           pizzaIngredientsIds.includes(i.id),
         ),
-        sum: calculatePizzaPrice(pizza),
+        priceSum: calculatePizzaPrice(pizza),
       };
     });
   });
 
   const miscData = computed(() => {
-    return miscList.value.map((misc) => {
+    return dataStore.misc.map((misc) => {
+      const miscItem = miscList.value.find((i) => i.miscId === misc.id);
       return {
         ...misc,
-        quantity: dataStore.getMiscById(misc.id)?.quantity ?? 0,
+        quantity: miscItem?.quantity ?? 0,
       };
     });
   });
 
   const pizzaPrice = computed(() => {
     return pizzasData.value.reduce((total, pizza) => {
-      return total + calculatePizzaPrice(pizza) * pizza.quantity;
+      return total + pizza.priceSum * pizza.quantity;
     }, 0);
   });
 
@@ -69,12 +70,15 @@ export const useCartStore = defineStore("cart", () => {
     return pizzaPrice.value + miscPrice.value;
   });
 
+  const havePizza = computed(() => {
+    return pizzaList.value.length > 0;
+  });
+
   function savePizza(pizza) {
     const { index, ...pizzaData } = pizza;
-
-    if (index !== null) {
-      pizzaList[index] = {
-        quantity: this.pizzaList[index].quantity,
+    if (index !== undefined && index !== null) {
+      pizzaList.value[index] = {
+        quantity: pizzaList.value[index].quantity,
         ...pizzaData,
       };
     } else {
@@ -83,8 +87,8 @@ export const useCartStore = defineStore("cart", () => {
   }
 
   function setPizzaCount(index, count) {
-    if (this.pizzaList[index]) {
-      this.pizzaList[index].quantity = count;
+    if (pizzaList.value[index]) {
+      pizzaList.value[index].quantity = count;
     }
   }
 
@@ -95,7 +99,7 @@ export const useCartStore = defineStore("cart", () => {
 
     if (miscIndex === -1) {
       if (count > 0) {
-        this.misc.push({
+        miscList.value.push({
           miscId,
           quantity: 1,
         });
@@ -104,39 +108,42 @@ export const useCartStore = defineStore("cart", () => {
     }
 
     if (count === 0) {
-      this.misc.splice(miscIndex, 1);
+      miscList.value.splice(miscIndex, 1);
       return;
     }
 
-    this.misc[miscIndex].quantity = count;
+    miscList.value[miscIndex].quantity = count;
   }
 
   function setAddressStreet(street) {
-    address.street.value = street;
+    address.street = street;
   }
 
   function setAddressHouse(house) {
-    address.house.value = house;
+    address.house = house;
   }
 
   function setAddressApartment(apartment) {
-    address.apartment.value = apartment;
+    address.apartment = apartment;
   }
 
   function setAddressComment(comment) {
-    address.comment.value = comment;
+    address.comment = comment;
   }
 
-  function setPhone(phone) {
-    phone.value = phone;
+  function setPhone(phoneValue) {
+    phone.value = phoneValue;
   }
 
-  function setReceiveType(receiveType) {
-    receiveType.value = receiveType;
+  function setReceiveType(receiveTypeValue) {
+    receiveType.value = receiveTypeValue;
   }
 
   function reset() {
-    address.value = defaultData.address;
+    address.street = defaultData.address.street;
+    address.house = defaultData.address.house;
+    address.apartment = defaultData.address.apartment;
+    address.comment = defaultData.address.comment;
     miscList.value = defaultData.miscList;
     pizzaList.value = defaultData.pizzaList;
     receiveType.value = defaultData.receiveType;
@@ -155,6 +162,7 @@ export const useCartStore = defineStore("cart", () => {
     pizzasData,
     miscData,
     savePizza,
+    havePizza,
     setPizzaCount,
     updateMiscCount,
     setAddressStreet,

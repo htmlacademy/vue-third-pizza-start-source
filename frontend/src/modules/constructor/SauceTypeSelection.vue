@@ -13,7 +13,7 @@
         :value="sauce.value"
         :data-id="sauce.id"
         :data-price="sauce.price"
-        :checked="selectedSauce === sauce.value"
+        :checked="selectedSauce === sauce.id"
         @change="change(sauce)"
       />
       <span>{{ sauce.name }}</span>
@@ -29,7 +29,7 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: String,
+    type: Number,
     required: true,
   },
 });
@@ -46,7 +46,7 @@ const selectedSauce = computed({
 });
 
 function change(itemValue) {
-  selectedSauce.value = itemValue.value;
+  selectedSauce.value = itemValue.id;
 }
 </script>
 <style lang="scss" scoped>

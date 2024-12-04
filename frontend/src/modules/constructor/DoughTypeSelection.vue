@@ -16,7 +16,7 @@
             :data-price="dough.price"
             :data-image="dough.image"
             class="visually-hidden"
-            :checked="selectedType === dough.value"
+            :checked="selectedType === dough.id"
             @change="change(dough)"
           />
           <b>{{ dough.name }}</b>
@@ -35,7 +35,7 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: String,
+    type: Number,
     required: true,
   },
 });
@@ -52,7 +52,7 @@ const selectedType = computed({
 });
 
 function change(itemValue) {
-  selectedType.value = itemValue.value;
+  selectedType.value = itemValue.id;
 }
 </script>
 <style lang="scss" scoped>

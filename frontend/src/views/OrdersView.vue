@@ -238,19 +238,7 @@ import { reactive } from "vue";
 import AppButton from "@/common/components/AppButton.vue";
 import { getImage } from "@/common/helpers/helpers";
 
-const emit = defineEmits(["update:sum"]);
-const props = defineProps({
-  sum: {
-    type: Number,
-    required: true,
-  },
-  order: {
-    type: Object,
-    required: true,
-  },
-});
-
-const order = reactive(props.order);
+const order = reactive({});
 
 function deleteOrder() {
   console.log("нажата удалить");
