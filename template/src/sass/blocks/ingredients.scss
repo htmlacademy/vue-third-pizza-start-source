@@ -1,3 +1,6 @@
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .ingredients__sauce {
   display: flex;
   align-items: center;
@@ -7,7 +10,7 @@
   margin-bottom: 14px;
 
   p {
-    @include r-s16-h19;
+    @include ds-typography.r-s16-h19;
 
     margin-top: 0;
     margin-right: 16px;
@@ -24,7 +27,7 @@
   width: 100%;
 
   p {
-    @include r-s16-h19;
+    @include ds-typography.r-s16-h19;
 
     margin-top: 0;
     margin-bottom: 16px;
@@ -32,7 +35,7 @@
 }
 
 .ingredients__list {
-  @include clear-list;
+  @include m_clear-list.clear-list;
 
   display: flex;
   align-items: flex-start;

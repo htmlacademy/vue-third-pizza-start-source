@@ -1,3 +1,8 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-shadows";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .counter {
   display: flex;
 
@@ -26,10 +31,10 @@
   outline: none;
 
   &--minus {
-    background-color: $purple-100;
+    background-color: ds-colors.$purple-100;
 
     &::before {
-      @include p_center-all;
+      @include m_center.p_center-all;
 
       width: $size_icon;
       height: 2px;
@@ -37,19 +42,19 @@
       content: "";
 
       border-radius: 2px;
-      background-color: $black;
+      background-color: ds-colors.$black;
     }
 
     &:hover:not(:active):not(:disabled) {
-      background-color: $purple-200;
+      background-color: ds-colors.$purple-200;
     }
 
     &:active:not(:disabled) {
-      background-color: $purple-300;
+      background-color: ds-colors.$purple-300;
     }
 
     &:focus:not(:disabled) {
-      box-shadow: $shadow-regular;
+      box-shadow: ds-shadows.$shadow-regular;
     }
 
     &:disabled {
@@ -62,10 +67,10 @@
   }
 
   &--plus {
-    background-color: $green-500;
+    background-color: ds-colors.$green-500;
 
     &::before {
-      @include p_center-all;
+      @include m_center.p_center-all;
 
       width: $size_icon;
       height: 2px;
@@ -73,11 +78,11 @@
       content: "";
 
       border-radius: 2px;
-      background-color: $white;
+      background-color: ds-colors.$white;
     }
 
     &::after {
-      @include p_center-all;
+      @include m_center.p_center-all;
 
       width: $size_icon;
       height: 2px;
@@ -86,19 +91,19 @@
       transform: translate(-50%, -50%) rotate(90deg);
 
       border-radius: 2px;
-      background-color: $white;
+      background-color: ds-colors.$white;
     }
 
     &:hover:not(:active):not(:disabled) {
-      background-color: $green-400;
+      background-color: ds-colors.$green-400;
     }
 
     &:active:not(:disabled) {
-      background-color: $green-600;
+      background-color: ds-colors.$green-600;
     }
 
     &:focus:not(:disabled) {
-      box-shadow: $shadow-regular;
+      box-shadow: ds-shadows.$shadow-regular;
     }
 
     &:disabled {
@@ -109,20 +114,20 @@
   }
 
   &--orange {
-    background-color: $orange-200;
+    background-color: ds-colors.$orange-200;
 
     &:hover:not(:active):not(:disabled) {
-      background-color: $orange-100;
+      background-color: ds-colors.$orange-100;
     }
 
     &:active:not(:disabled) {
-      background-color: $orange-300;
+      background-color: ds-colors.$orange-300;
     }
   }
 }
 
 .counter__input {
-  @include r-s14-h16;
+  @include ds-typography.r-s14-h16;
 
   box-sizing: border-box;
   width: 22px;
@@ -131,13 +136,13 @@
 
   text-align: center;
 
-  color: $black;
+  color: ds-colors.$black;
   border: none;
   border-radius: 10px;
   outline: none;
   background-color: transparent;
 
   &:focus {
-    box-shadow: inset $shadow-regular;
+    box-shadow: inset ds-shadows.$shadow-regular;
   }
 }

@@ -1,5 +1,9 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .filling {
-  @include r-s14-h16;
+  @include ds-typography.r-s14-h16;
 
   position: relative;
 
@@ -8,7 +12,7 @@
   padding-left: 36px;
 
   &::before {
-    @include p_center-v;
+    @include m_center.p_center-v;
 
     display: block;
 
@@ -18,7 +22,7 @@
     content: "";
 
     border-radius: 50%;
-    background-color: $white;
+    background-color: ds-colors.$white;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80% 80%;

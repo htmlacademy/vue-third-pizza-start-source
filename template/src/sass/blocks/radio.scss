@@ -1,15 +1,19 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .radio {
   cursor: pointer;
 
   span {
-    @include r-s16-h19;
+    @include ds-typography.r-s16-h19;
 
     position: relative;
 
     padding-left: 28px;
 
     &:before {
-      @include p_center-v;
+      @include m_center.p_center-v;
 
       display: block;
 
@@ -20,16 +24,16 @@
       content: "";
       transition: 0.3s;
 
-      border: 1px solid $purple-400;
+      border: 1px solid ds-colors.$purple-400;
       border-radius: 50%;
-      background-color: $white;
+      background-color: ds-colors.$white;
     }
   }
 
   &:hover {
     input:not(:checked):not(:disabled) + span {
       &:before {
-        border-color: $purple-800;
+        border-color: ds-colors.$purple-800;
       }
     }
   }
@@ -39,21 +43,21 @@
 
     &:checked + span {
       &:before {
-        border: 6px solid $green-500;
+        border: 6px solid ds-colors.$green-500;
       }
     }
 
     &:disabled {
       & + span {
         &:before {
-          border-color: $purple-400;
-          background-color: $silver-200;
+          border-color: ds-colors.$purple-400;
+          background-color: ds-colors.$silver-200;
         }
       }
 
       &:checked + span {
         &:before {
-          border: 6px solid $purple-400;
+          border: 6px solid ds-colors.$purple-400;
         }
       }
     }

@@ -1,7 +1,11 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-shadows";
+@use "../ds-system/ds-typography";
+
 .button {
   $bl: &;
 
-  @include b-s18-h21;
+  @include ds-typography.b-s18-h21;
   font-family: inherit;
   display: block;
 
@@ -13,20 +17,20 @@
   transition: 0.3s;
   text-align: center;
 
-  color: $white;
+  color: ds-colors.$white;
   border: none;
   border-radius: 8px;
   outline: none;
-  box-shadow: $shadow-medium;
+  box-shadow: ds-shadows.$shadow-medium;
 
-  background-color: $green-500;
+  background-color: ds-colors.$green-500;
 
   &:hover:not(:active):not(:disabled) {
-    background-color: $green-400;
+    background-color: ds-colors.$green-400;
   }
 
   &:active:not(:disabled) {
-    background-color: $green-600;
+    background-color: ds-colors.$green-600;
   }
 
   &:focus:not(:disabled) {
@@ -34,26 +38,26 @@
   }
 
   &:disabled {
-    background-color: $green-300;
-    color: rgba($white, 0.2);
+    background-color: ds-colors.$green-300;
+    color: rgba(ds-colors.$white, 0.2);
     cursor: default;
   }
 
   &--border {
     background-color: transparent;
-    border: 1px solid $green-500;
-    color: $black;
+    border: 1px solid ds-colors.$green-500;
+    color: ds-colors.$black;
     box-shadow: none;
 
     &:hover:not(:active):not(:disabled) {
-      color: $green-500;
-      border-color: $green-500;
+      color: ds-colors.$green-500;
+      border-color: ds-colors.$green-500;
       background-color: transparent;
     }
 
     &:active:not(:disabled) {
-      color: $green-600;
-      border-color: $green-600;
+      color: ds-colors.$green-600;
+      border-color: ds-colors.$green-600;
       background-color: transparent;
     }
 
@@ -63,18 +67,18 @@
   }
 
   &--transparent {
-    @include b-s14-h16;
+    @include ds-typography.b-s14-h16;
     background-color: transparent;
     box-shadow: none;
-    color: $black;
+    color: ds-colors.$black;
 
     &:hover:not(:active):not(:disabled) {
-      color: $red-800;
+      color: ds-colors.$red-800;
       background-color: transparent;
     }
 
     &:active:not(:disabled) {
-      color: $red-900;
+      color: ds-colors.$red-900;
       background-color: transparent;
     }
 
@@ -99,7 +103,7 @@
   }
 
   &--white {
-    background-color: $white;
-    color: $green-500;
+    background-color: ds-colors.$white;
+    color: ds-colors.$green-500;
   }
 }

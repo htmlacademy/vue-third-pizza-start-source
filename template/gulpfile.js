@@ -11,7 +11,7 @@ const imagemin = require('gulp-imagemin');
 const svgmin = require('gulp-svgmin');
 const svgstore = require('gulp-svgstore');
 
-const sass = require('gulp-sass')(require('node-sass'));
+const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const objectFit = require('postcss-object-fit-images')
@@ -77,7 +77,8 @@ gulp.task('style', function () {
   return gulp.src('src/sass/style.scss')
     .pipe(plumber())
     .pipe(sass({
-      outputStyle: 'expanded'
+      outputStyle: 'expanded',
+      silenceDeprecations: ['legacy-js-api'],
     }))
     .pipe(postcss([
       autoprefixer(),

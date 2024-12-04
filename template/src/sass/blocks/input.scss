@@ -1,8 +1,11 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .input {
   display: block;
 
   span {
-    @include r-s14-h16;
+    @include ds-typography.r-s14-h16;
 
     display: block;
 
@@ -10,7 +13,7 @@
   }
 
   input {
-    @include r-s16-h19;
+    @include ds-typography.r-s16-h19;
 
     display: block;
 
@@ -21,22 +24,22 @@
 
     transition: 0.3s;
 
-    color: $black;
-    border: 1px solid $purple-400;
+    color: ds-colors.$black;
+    border: 1px solid ds-colors.$purple-400;
     border-radius: 8px;
     outline: none;
-    background-color: $white;
+    background-color: ds-colors.$white;
 
     font-family: inherit;
 
     &:focus {
-      border-color: $green-500;
+      border-color: ds-colors.$green-500;
     }
   }
 
   &:hover {
     input {
-      border-color: $black;
+      border-color: ds-colors.$black;
     }
   }
 
@@ -45,7 +48,7 @@
     align-items: center;
 
     span {
-      @include b-s16-h19;
+      @include ds-typography.b-s16-h19;
 
       margin-right: 16px;
 

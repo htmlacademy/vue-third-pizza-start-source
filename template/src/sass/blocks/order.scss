@@ -1,3 +1,7 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_clear-list";
+
 .order {
   margin-bottom: 32px;
   padding-top: 0;
@@ -9,14 +13,14 @@
 
   padding: 6px 16px;
 
-  border-bottom: 1px solid rgba($green-500, 0.1);
+  border-bottom: 1px solid rgba(ds-colors.$green-500, 0.1);
 
   b {
-    @include b-s14-h16;
+    @include ds-typography.b-s14-h16;
   }
 
   span {
-    @include b-s14-h16;
+    @include ds-typography.b-s14-h16;
   }
 
   button {
@@ -37,7 +41,7 @@
 }
 
 .order__list {
-  @include clear-list;
+  @include m_clear-list.clear-list;
 
   display: flex;
   align-items: flex-start;
@@ -57,7 +61,7 @@
 }
 
 .order__price {
-  @include b-s16-h19;
+  @include ds-typography.b-s16-h19;
 
   margin: 0;
 
@@ -65,7 +69,7 @@
 }
 
 .order__additional {
-  @include clear-list;
+  @include m_clear-list.clear-list;
 
   display: flex;
   align-items: flex-start;
@@ -75,7 +79,7 @@
   padding-left: 80px;
 
   li {
-    @include b-s11-h16;
+    @include ds-typography.b-s11-h16;
 
     width: 130px;
     margin-right: 24px;
@@ -98,10 +102,10 @@
 }
 
 .order__address {
-  @include l-s11-h13;
+  @include ds-typography.l-s11-h13;
 
   margin: 0;
   padding: 16px 10px;
 
-  border-top: 1px solid rgba($green-500, 0.1);
+  border-top: 1px solid rgba(ds-colors.$green-500, 0.1);
 }

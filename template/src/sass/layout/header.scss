@@ -1,3 +1,7 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-shadows";
+@use "../ds-system/ds-typography";
+
 .header {
   position: relative;
   z-index: 2;
@@ -6,8 +10,8 @@
 
   padding: 0 2.12%;
 
-  background-color: $green-500;
-  box-shadow: $shadow-light;
+  background-color: ds-colors.$green-500;
+  box-shadow: ds-shadows.$shadow-light;
 }
 
 .header__logo {
@@ -20,7 +24,7 @@
   margin-left: auto;
 
   a {
-    @include b-s16-h19;
+    @include ds-typography.b-s16-h19;
 
     display: block;
 
@@ -31,19 +35,19 @@
 
     transition: 0.3s;
 
-    color: $white;
-    background-color: $green-500;
+    color: ds-colors.$white;
+    background-color: ds-colors.$green-500;
     background-image: url("../img/cart.svg");
     background-repeat: no-repeat;
     background-position: 20px center;
     background-size: 29px 27px;
 
     &:hover:not(:active) {
-      background-color: $green-400;
+      background-color: ds-colors.$green-400;
     }
 
     &:active {
-      background-color: $green-600;
+      background-color: ds-colors.$green-600;
     }
 
     &:focus {
@@ -66,14 +70,14 @@
 
     transition: 0.3s;
 
-    background-color: $green-500;
+    background-color: ds-colors.$green-500;
 
     &:hover:not(:active) {
-      background-color: $green-400;
+      background-color: ds-colors.$green-400;
     }
 
     &:active {
-      background-color: $green-600;
+      background-color: ds-colors.$green-600;
     }
 
     &:focus {
@@ -94,13 +98,13 @@
   }
 
   span {
-    @include r-s14-h16;
+    @include ds-typography.r-s14-h16;
 
     display: inline-block;
 
     vertical-align: middle;
 
-    color: $white;
+    color: ds-colors.$white;
   }
 }
 

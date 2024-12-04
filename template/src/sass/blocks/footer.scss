@@ -1,3 +1,6 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .footer {
   display: flex;
   align-items: center;
@@ -5,7 +8,7 @@
   margin-top: auto;
   padding: 25px 2.12%;
 
-  background-color: rgba($green-500, 0.1);
+  background-color: rgba(ds-colors.$green-500, 0.1);
 }
 
 .footer__more {
@@ -19,13 +22,13 @@
 }
 
 .footer__text {
-  @include l-s11-h13;
+  @include ds-typography.l-s11-h13;
 
-  color: rgba($black, 0.5);
+  color: rgba(ds-colors.$black, 0.5);
 }
 
 .footer__price {
-  @include b-s24-h28;
+  @include ds-typography.b-s24-h28;
 
   margin-right: 12px;
   margin-left: auto;

@@ -1,3 +1,6 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-typography";
+
 .address-form {
   $bl: &;
 
@@ -13,7 +16,7 @@
   }
 
   p {
-    @include r-s16-h19;
+    @include ds-typography.r-s16-h19;
 
     margin-top: 0;
     margin-bottom: 16px;
@@ -21,7 +24,7 @@
   }
 
   small {
-    @include l-s11-h13;
+    @include ds-typography.l-s11-h13;
 
     display: block;
 
@@ -66,7 +69,7 @@
 }
 
 .address-form__header {
-  @include b-s14-h16;
+  @include ds-typography.b-s14-h16;
 
   display: flex;
   align-items: center;
@@ -75,5 +78,5 @@
   margin-bottom: 21px;
   padding: 10px 16px;
 
-  border-bottom: 1px solid rgba($green-500, 0.1);
+  border-bottom: 1px solid rgba(ds-colors.$green-500, 0.1);
 }

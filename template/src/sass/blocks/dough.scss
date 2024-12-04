@@ -1,3 +1,7 @@
+@use "../ds-system/ds-shadows";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .dough__input {
   position: relative;
 
@@ -8,10 +12,10 @@
   cursor: pointer;
 
   b {
-    @include r-s16-h19;
+    @include ds-typography.r-s16-h19;
 
     &::before {
-      @include p_center-v;
+      @include m_center.p_center-v;
 
       width: 36px;
       height: 36px;
@@ -27,7 +31,7 @@
   }
 
   span {
-    @include l-s11-h13;
+    @include ds-typography.l-s11-h13;
 
     display: block;
   }
@@ -50,13 +54,13 @@
 
   &:hover {
     b::before {
-      box-shadow: $shadow-regular;
+      box-shadow: ds-shadows.$shadow-regular;
     }
   }
 
   input {
     &:checked + b::before {
-      box-shadow: $shadow-large;
+      box-shadow: ds-shadows.$shadow-large;
     }
   }
 }

@@ -1,3 +1,5 @@
+@use "../ds-system/ds-colors";
+
 .close {
   position: absolute;
   top: 16px;
@@ -10,7 +12,7 @@
   transition: 0.3s;
   text-decoration: none;
 
-  color: $black;
+  color: ds-colors.$black;
   border-radius: 50%;
   outline: none;
 
@@ -26,7 +28,7 @@
     content: "";
 
     border-radius: 2px;
-    background-color: $black;
+    background-color: ds-colors.$black;
   }
 
   &::before {
@@ -48,14 +50,14 @@
   &:focus {
     &::before,
     &::after {
-      background-color: $orange-100;
+      background-color: ds-colors.$orange-100;
     }
   }
 
   &--white {
     &::before,
     &::after {
-      background-color: $white;
+      background-color: ds-colors.$white;
     }
   }
 }

@@ -1,3 +1,8 @@
+@use "../ds-system/ds-colors";
+@use "../ds-system/ds-shadows";
+@use "../ds-system/ds-typography";
+@use "../mixins/m_center";
+
 .diameter__input {
   margin-right: 8.7%;
   margin-bottom: 20px;
@@ -7,14 +12,14 @@
   cursor: pointer;
 
   span {
-    @include r-s16-h19;
+    @include ds-typography.r-s16-h19;
 
     position: relative;
 
     padding-left: 46px;
 
     &::before {
-      @include p_center_v;
+      @include m_center.p_center_v;
 
       width: 36px;
       height: 36px;
@@ -23,7 +28,7 @@
       transition: 0.3s;
 
       border-radius: 50%;
-      background-color: $green-100;
+      background-color: ds-colors.$green-100;
       background-image: url("../img/diameter.svg");
       background-repeat: no-repeat;
       background-position: center;
@@ -54,13 +59,13 @@
 
   &:hover {
     span::before {
-      box-shadow: $shadow-regular;
+      box-shadow: ds-shadows.$shadow-regular;
     }
   }
 
   input {
     &:checked + span::before {
-      box-shadow: $shadow-large;
+      box-shadow: ds-shadows.$shadow-large;
     }
   }
 }
