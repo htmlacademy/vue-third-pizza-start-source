@@ -20,25 +20,43 @@ export const useDataStore = defineStore("data", () => {
   const misc = miscData;
 
   function getPriceByDoughId(doughId) {
-    return this.doughTypeList.find((item) => item.id === doughId)?.price || 0;
+    return getDoughById(doughId)?.price || 0;
   }
 
   function getPriceBySauceId(sauceId) {
-    return this.sauceList.find((item) => item.id === sauceId)?.price || 0;
+    return getSauceById(sauceId)?.price || 0;
   }
 
   function getMultiplierBySizeId(sizeId) {
-    return this.doughSizeList.find((item) => item.id === sizeId)?.price || 1;
+    return getSizeById(sizeId)?.multiplier || 1;
   }
 
   function getPriceByIngredientId(ingredientId) {
-    return (
-      this.ingredients.find((item) => item.id === ingredientId)?.multiplier || 0
-    );
+    return getIngredientById(ingredientId)?.price || 0;
   }
 
   function getPriceByMiscId(miscId) {
-    return this.misc.find((item) => item.id === miscId)?.price || 0;
+    return getMiscById(miscId)?.price || 0;
+  }
+
+  function getDoughById(doughId) {
+    return this.doughTypeList.find((item) => item.id === doughId) || null;
+  }
+
+  function getSauceById(sauceId) {
+    return this.sauceList.find((item) => item.id === sauceId) || null;
+  }
+
+  function getSizeById(sizeId) {
+    return this.doughSizeList.find((item) => item.id === sizeId) || null;
+  }
+
+  function getIngredientById(ingredientId) {
+    return this.ingredients.find((item) => item.id === ingredientId) || null;
+  }
+
+  function getMiscById(miscId) {
+    return this.misc.find((item) => item.id === miscId) || null;
   }
 
   return {
@@ -47,6 +65,11 @@ export const useDataStore = defineStore("data", () => {
     sauceList,
     doughSizeList,
     misc,
+    getDoughById,
+    getSauceById,
+    getSizeById,
+    getIngredientById,
+    getMiscById,
     getPriceByDoughId,
     getPriceBySauceId,
     getMultiplierBySizeId,
