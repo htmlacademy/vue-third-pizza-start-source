@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { calculatePizzaPrice } from "@/common/helpers/pizza-price";
 import { useDataStore } from "@/stores/data";
-import { ingredientsQuantity } from "@/common/helpers/ingridients-count";
 
 export const usePizzaStore = defineStore("pizza", () => {
   const defaultState = {
@@ -62,7 +61,12 @@ export const usePizzaStore = defineStore("pizza", () => {
   });
 
   const ingredientsWithCount = computed(() => {
-    return ingredientsQuantity({ ingredients: ingredients.value });
+    return dataStore.ingredients.reduce((acc, val) => {
+      acc[val.id] =
+        ingredients.value?.find((item) => item.ingredientId === val.id)
+          ?.quantity ?? 0;
+      return acc;
+    }, {});
   });
 
   function init() {

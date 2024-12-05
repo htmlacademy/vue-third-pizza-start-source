@@ -20,7 +20,9 @@
               {{ ingredient.name }}
             </span>
           </app-drag>
-          <!-- //todo не понравилось, как получилось обновление игредиентов. Видимо нужно упрощать структуру данных в store пиццы -->
+          <!-- //todo не понравилось, как получилось обновление игредиентов. Видимо нужно упрощать структуру данных в store пиццы
+           планировалось использование pizzaStore.updateIngredientCount: но так ломается обновление данных
+           -->
           <app-counter
             :model-value="ingredientsCount[ingredient.id]"
             class="ingredients__counter"

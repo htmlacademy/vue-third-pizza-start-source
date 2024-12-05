@@ -12,9 +12,9 @@ export default [
     meta: { layout: "AppLayoutUser" },
   },
   {
-    path: "/popup",
-    name: "PopupView",
-    component: () => import("../views/PopupView.vue"),
+    path: "/success",
+    name: "SuccessView",
+    component: () => import("../views/SuccessView.vue"),
   },
   {
     path: "/auth",

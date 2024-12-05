@@ -293,7 +293,7 @@ function submitOrder() {
     cartStore.setAddressHouse(address.flat);
     cartStore.setAddressComment(address.comment);
   }
-  router.push({ name: "PopupView" });
+  router.push({ name: "SuccessView" });
 }
 </script>
 
