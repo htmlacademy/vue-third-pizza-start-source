@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <app-header></app-header>
-    <slot />
-  </div>
+  <app-header></app-header>
+  <slot />
 </template>
-<script>
-import AppHeader from "./AppHeader";
-export default {
-  components: {AppHeader}
-}
+<script setup>
+import AppHeader from "./AppHeader.vue";
 </script>
