@@ -11,16 +11,12 @@
             <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
             <div class="sheet__content dough">
-              <label class="dough__input dough__input--light">
-                <input type="radio" name="dought" value="light" class="visually-hidden" checked>
-                <b>Тонкое</b>
-                <span>Из твердых сортов пшеницы</span>
-              </label>
-
-            <label class="dough__input dough__input--large">
-                <input type="radio" name="dought" value="large" class="visually-hidden">
-                <b>Толстое</b>
-                <span>Из твердых сортов пшеницы</span>
+              <label v-for="depth in dough"
+                :key="depth.id"
+                class="dough__input dough__input--light">
+                <input type="radio" name="dought" :value="depth.name_value" class="visually-hidden" v-model="picked">
+                <b>{{ depth.name }}</b>
+                <span>{{ depth.descriptions }}</span>
               </label>
             </div>
 
@@ -302,3 +298,8 @@
     </form>
   </main>
 </template>
+
+<script setup>
+	import dough from '../mocks/dough.json'
+
+</script>
