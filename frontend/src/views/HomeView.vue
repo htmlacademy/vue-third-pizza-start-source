@@ -1,5 +1,5 @@
 <template>
-    <main class="content">
+  <main class="content">
     <form action="#" method="post">
 
       <div class="content__wrapper">
@@ -29,17 +29,9 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
 
             <div class="sheet__content diameter">
-              <label class="diameter__input diameter__input--small">
-                <input type="radio" name="diameter" value="small" class="visually-hidden">
-                <span>23 см</span>
-              </label>
-              <label class="diameter__input diameter__input--normal">
-                <input type="radio" name="diameter" value="normal" class="visually-hidden" checked>
-                <span>32 см</span>
-              </label>
-              <label class="diameter__input diameter__input--big">
-                <input type="radio" name="diameter" value="big" class="visually-hidden">
-                <span>45 см</span>
+              <label v-for="size in sizes" :key="size.id" class="diameter__input diameter__input--small">
+                <input type="radio" name="diameter" :value="size.name_value" class="visually-hidden">
+                <span>{{ size.name }}</span>
               </label>
             </div>
           </div>
@@ -301,5 +293,6 @@
 
 <script setup>
 	import dough from '../mocks/dough.json'
+	import sizes from '../mocks/sizes.json'
 
 </script>
