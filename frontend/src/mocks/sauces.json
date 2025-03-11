@@ -2,11 +2,13 @@
   {
     "id": 1,
     "name": "Томатный",
+    "name_value": "tomato",
     "price": 50
   },
   {
     "id": 2,
     "name": "Сливочный",
+    "name_value": "creamy",
     "price": 50
   }
 ]

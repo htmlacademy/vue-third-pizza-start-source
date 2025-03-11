@@ -46,13 +46,9 @@
               <div class="ingredients__sauce">
                 <p>Основной соус:</p>
 
-                <label class="radio ingredients__input">
-                  <input type="radio" name="sauce" value="tomato" checked>
-                  <span>Томатный</span>
-                </label>
-                <label class="radio ingredients__input">
-                  <input type="radio" name="sauce" value="creamy">
-                  <span>Сливочный</span>
+                <label v-for="sauce in sauces" :key="sauce.id" class="radio ingredients__input">
+                  <input type="radio" name="sauce" :value="sauce.name_value">
+                  <span>{{ sauce.name }}</span>
                 </label>
               </div>
 
@@ -117,4 +113,5 @@
   import dough from '../mocks/dough.json'
   import sizes from '../mocks/sizes.json'
   import ingredients from '../mocks/ingredients.json'
+  import sauces from '../mocks/sauces.json'
 </script>
