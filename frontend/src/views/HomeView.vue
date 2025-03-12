@@ -29,7 +29,7 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
 
             <div class="sheet__content diameter">
-              <label v-for="size in sizes" :key="size.id" class="diameter__input diameter__input--small">
+              <label v-for="size in sizes" :key="size.id" class="diameter__input" :class="`diameter__input--${size.value}`">
                 <input type="radio" name="diameter" :value="size.name_value" class="visually-hidden">
                 <span>{{ size.name }}</span>
               </label>
