@@ -1,17 +1,7 @@
 <template>
   <div class="sheet__content dough">
-    <label
-      class="dough__input"
-      v-for="doughType in doughItems"
-      :key="doughType.id"
-    >
-      <input
-        type="radio"
-        name="dough"
-        :value="doughType.value"
-        class="visually-hidden"
-        checked
-      />
+    <label class="dough__input" v-for="doughType in doughItems" :key="doughType.id">
+      <input type="radio" name="dough" :value="doughType.value" class="visually-hidden" checked />
       <img :src="getImage(doughType.image)" :alt="doughType.name" />
 
       <b>{{ doughType.name }}</b>
@@ -64,16 +54,16 @@ const getImage = (image) => {
     transition: 0.3s;
     border-radius: 50%;
   }
-  
+
   b {
     @include r-s16-h19;
   }
-  
+
   span {
     @include l-s11-h13;
     display: block;
   }
-  
+
   &:hover {
     img {
       box-shadow: $shadow-regular;
@@ -81,7 +71,7 @@ const getImage = (image) => {
   }
 
   input {
-    &:checked + img {
+    &:checked+img {
       box-shadow: $shadow-large;
     }
   }
