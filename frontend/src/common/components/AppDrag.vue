@@ -1,13 +1,13 @@
 <template>
-    <div
-      :draggable="true"
-      @dragstart.self="onDrag"
-      @dragover.prevent
-      @dragenter.prevent
-    >
-      <slot />
-    </div>
-  </template>
+  <div
+    :draggable="true"
+    @dragstart.self="onDrag"
+    @dragover.prevent
+    @dragenter.prevent
+  >
+    <slot />
+  </div>
+</template>
 
 <script setup>
 import { DATA_TRANSFER_PAYLOAD } from "@/common/constants";
