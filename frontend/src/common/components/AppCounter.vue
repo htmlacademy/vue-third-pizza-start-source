@@ -35,7 +35,8 @@ const emit = defineEmits(['input'])
     <button class="counter__button counter__button--plus"
         :disabled="value === max" 
         @click="emit('input', value + 1)"
-    >
+    >  <span> {{ label }}</span>
+    </button>   
     <input
       type="text"
       name="counter"
@@ -43,8 +44,7 @@ const emit = defineEmits(['input'])
       :value="value"
       @input="emit('input', Number($event.target.value))"
     />    
-        <span> {{ label }}</span>
-    </button>    
+       
 </template>
 
 <style lang="scss" scoped>
