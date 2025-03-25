@@ -1,4 +1,5 @@
 <template>
+  
   <div class="ingredients__filling">
     <p>Начинка:</p>
 

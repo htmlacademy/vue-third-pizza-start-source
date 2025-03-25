@@ -10,9 +10,11 @@
       <router-link :to="{ name: 'Card' }">0 ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link :to="{ name: 'User' }">Пользователь</router-link>
+      <router-link :to="{ name: 'User' }"><i class="pi pi-user"> Пользователь </i></router-link>
+    </div>
+    <div>
       <router-link :to="{ name: 'HomeView' }" class="header__logout">
-        <span>Выйти</span>
+        <i class="pi pi-eject" style="color: green"> Выход</i>
       </router-link>
     </div>
   </header>
@@ -68,14 +70,11 @@
     display: flex;
     align-items: center;
 
-  a {
-    display: block;
-
-    padding: 14px 20px;
-
-    transition: 0.3s;
-
-    background-color: $green-500;
+    a {
+      display: block;
+      padding: 14px 20px;
+      transition: 0.3s;
+      background-color:#f7ce6f;
 
       &:hover:not(:active) {
         background-color: #f7ce6f;
@@ -89,22 +88,6 @@
         opacity: 0.5;
       }
     }
-
-    img {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      margin-right: 8px;
-      vertical-align: middle;
-      border-radius: 50%;
-    }
-
-    span {
-      @include r-s14-h16;
-      display: inline-block;
-      vertical-align: middle;
-      color: $white;
-    }
   }
 
   &__logout {
@@ -115,7 +98,6 @@
       margin-right: 8px;
       content: "";
       vertical-align: middle;
-      background: url("@/assets/img/login.svg") no-repeat center;
       background-size: auto 50%;
     }
   }

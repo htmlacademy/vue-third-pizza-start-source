@@ -3,11 +3,8 @@
     <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
-
-        <dough-selector v-model="pizza.dough" :items="doughItems" />
-
-        <diameter-selector v-model="pizza.size" :items="sizeItems" />
-
+          <dough-selector v-model="pizza.dough" :items="doughItems" />
+          <diameter-selector v-model="pizza.size" :items="sizeItems" />
         <div class="content__ingredients">
           <div class="sheet">
             <h2 class="title title--small sheet__title">
@@ -90,11 +87,6 @@ const price = computed(() => {
   const saucePrice =
     sauceItems.find((item) => item.value === sauce)?.price ?? 0;
 
-  /*
-   * Здесь мы при помощи метода map превращаем массив ингредиентов
-   * в массив значений, соответствующих итоговой стоимости каждого из них - просто умножив известную цену на количество.
-   * После чего методом reduce вычисляем сумму всех элементов массива, что даст нам общую стоимость всех ингредиентов.
-   */
   const ingredientsPrice = ingredientItems
     .map((item) => ingredients[item.value] * item.price)
     .reduce((acc, item) => acc + item, 0);
@@ -115,7 +107,3 @@ const updateIngredientAmount = (ingredient, count) => {
 };
 </script>
 
-<style lang="scss">
-@import "@/assets/scss/ds-system/ds.scss";
-@import "@/assets/scss/mixins/mixins.scss";
-</style>
