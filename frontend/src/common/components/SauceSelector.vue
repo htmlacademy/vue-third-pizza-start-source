@@ -6,23 +6,31 @@
             v-for="sauceType in sauceItems"
             :key="sauceType.id"
         >
-          <input type="radio" name="sauce" :value="sauceType.value" v-model="selectedSauce" />
+          <input 
+            type="radio" 
+            name="sauce" 
+            :value="sauceType.value" 
+            :checked="sauceType.value === modelValue"
+            @change="$emit('update:modelValue', sauceType.value)"
+          />
           <span>{{ sauceType.name }}</span>
         </label>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+defineEmits(['update:modelValue']);
 
 const props = defineProps({
   sauceItems: {
     type: Array,
     required: true,
   },
+  modelValue: {
+    type: Object,
+    required: true
+  }
 });
-
-const selectedSauce = ref(props.sauceItems[0].value);
 </script>
 
 <style scoped>

@@ -6,16 +6,39 @@
         <h1 class="title title--big">Конструктор пиццы</h1>
 
         <!-- Компонент выбора теста -->
-        <DoughSelector :doughItems="doughItems" />
+        <DoughSelector 
+          :doughItems="doughItems"
+          v-model:modelValue="selectedDough"
+        />
 
         <!-- Компонент выбора размера -->
-        <SizeSelector :sizeItems="sizeItems" />
+        <SizeSelector 
+          :sizeItems="sizeItems"
+          v-model:modelValue="selectedSize"
+        />
 
-        <IngredientsSection :sauceItems="sauceItems" :ingredientItems="ingredientItems" />
+    
+        <div class="content__ingredients">
+          <div class="sheet">
+            <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
+            <div class="sheet__content ingredients">
+              <SauceSelector 
+                :sauceItems="sauceItems"
+                v-model:modelValue="selectedSauce"
+              />
+              <IngredientsSelector 
+                :ingredientItems="ingredientItems"
+                v-model:modelValue="ingredientsState"
+              />
+            </div>
+          </div>
+        </div>
 
         <!-- Компонент отображения пиццы -->
         <PizzaDisplay />
-
+        <div>DoughSelector: {{ selectedDough }}</div>
+        <div>SizeSelector: {{ selectedSize }}</div>
+        <div>SauceSelector: {{ selectedSauce }}</div>
       </div>
 
     </form>
@@ -24,6 +47,7 @@
 
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import {
   normalizeDough,
   normalizeIngredients,
@@ -32,8 +56,9 @@ import {
 } from "@/common/helpers/normalize";
 
 import DoughSelector from "@/common/components/DoughSelector.vue";
+import SauceSelector  from "@/common/components/SauceSelector.vue";
+import IngredientsSelector  from "@/common/components/IngredientsSelector.vue";
 import SizeSelector from "@/common/components/SizeSelector.vue";
-import IngredientsSection from "@/common/components/IngredientsSection.vue";
 import PizzaDisplay from "@/common/components/PizzaDisplay.vue";
 
 import doughJSON from "@/mocks/dough.json";
@@ -46,10 +71,24 @@ const ingredientItems = ingredientsJSON.map(normalizeIngredients);
 const sauceItems = saucesJSON.map(normalizeSauces);
 const sizeItems = sizesJSON.map(normalizeSize);
 
-const getImage = image => {
-  // https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url
-  return new URL(`../assets/img/${image}`, import.meta.url).href
-}
+const selectedDough = ref(null);
+const selectedSize = ref(null);
+const selectedSauce = ref(null);
+const ingredientsState = ref({});
+
+onMounted(() => {
+  selectedDough.value = doughItems[0].value;
+  selectedSize.value = sizeItems[0].value;
+  selectedSauce.value = sauceItems[0].value;
+  // Инициализируем состояние для всех ингредиентов
+  ingredientItems.forEach(ingredient => {
+    ingredientsState.value[ingredient.id] = {
+      ingredient,
+      count: 0
+    };
+  });
+});
+
 
 </script>
 

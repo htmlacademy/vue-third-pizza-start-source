@@ -14,11 +14,13 @@
               name="dought"
               :value="doughType.value"
               class="visually-hidden"
-              v-model="selectedDough"
+              :checked="doughType.value === modelValue"
+              @change="$emit('update:modelValue', doughType.value)"
           />
           <img :src="getImage(doughType.image)" :alt="doughType.name" />
           <b>{{ doughType.name }}</b>
           <span>{{ doughType.description }}</span>
+          <div>{{ modelValue }}</div>
         </label>
       </div>
     </div>
@@ -26,16 +28,19 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 
 const props = defineProps({
   doughItems: {
     type: Array,
     required: true,
+  },
+  modelValue: {
+    type: Object,
+    required: true
   }
 })
 
-const selectedDough = ref(props.doughItems[0].value);
+defineEmits(['update:modelValue']);
 
 const getImage = (image) => {
   return new URL(`../../assets/img/${image}`, import.meta.url).href;

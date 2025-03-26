@@ -5,20 +5,44 @@
       <input type="text" name="pizza_name" placeholder="Введите название пиццы" />
     </label>
     <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
-        <div class="pizza__wrapper">
-          <div class="pizza__filling pizza__filling--ananas"></div>
-          <div class="pizza__filling pizza__filling--bacon"></div>
-          <div class="pizza__filling pizza__filling--cheddar"></div>
+      <AppDrop @drop="onDropIngredient">
+        <div class="pizza pizza--foundation--big-tomato">
+          <div class="pizza__wrapper">
+            <!-- Отображаем выбранные ингредиенты -->
+            <div
+              v-for="(ingredient, index) in selectedIngredients"
+              :key="index"
+              class="pizza__filling"
+              :class="`pizza__filling--${ingredient.name}`"
+            >
+            </div>
+          </div>
         </div>
-      </div>
+      </AppDrop>
     </div>
     <div class="content__result">
-      <p>Итого: 0 ₽</p>
-      <button type="button" class="button" disabled>Готовьте!</button>
+      <p>Итого: {{ totalPrice }} ₽</p>
+      <button type="button" class="button" :disabled="!selectedIngredients.length">Готовьте!</button>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, computed } from "vue";
+import AppDrop from "@/common/components/AppDrop.vue";
+
+const selectedIngredients = ref([]);
+
+const onDropIngredient = (ingredient) => {
+  console.log('ingredient', ingredient);
+  selectedIngredients.value.push(ingredient);
+};
+
+const totalPrice = computed(() => {
+  return selectedIngredients.value.reduce((sum, ingredient) => sum + ingredient.price, 0);
+});
+
+</script>
 
 <style scoped>
 .content__pizza {

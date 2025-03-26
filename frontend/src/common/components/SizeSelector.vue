@@ -14,7 +14,8 @@
               name="diameter"
               :value="sizeType.value"
               class="visually-hidden"
-              v-model="selectedSize"
+              :checked="sizeType.value === modelValue"
+              @change="$emit('update:modelValue', sizeType.value)"
           />
           <span>{{ sizeType.name }}</span>
         </label>
@@ -24,16 +25,19 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 
 const props = defineProps({
   sizeItems: {
     type: Array,
     required: true,
   },
+  modelValue: {
+    type: Object,
+    required: true
+  }
 });
 
-const selectedSize = ref(props.sizeItems[0].value);
+defineEmits(['update:modelValue']);
 </script>
 
 <style scoped>
