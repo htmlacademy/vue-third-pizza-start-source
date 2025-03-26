@@ -6,14 +6,21 @@
     </label>
     <div class="content__constructor">
       <AppDrop @drop="onDropIngredient">
-        <div class="pizza pizza--foundation--big-tomato">
+        <div 
+          class="pizza" 
+          :class="`pizza--foundation--${dough}-${sauce}`"
+        >
           <div class="pizza__wrapper">
             <!-- Отображаем выбранные ингредиенты -->
             <div
-              v-for="(ingredient, index) in selectedIngredients"
+              v-for="(ingredient, index) in ingredients"
               :key="index"
               class="pizza__filling"
-              :class="`pizza__filling--${ingredient.name}`"
+              :class="[
+                `pizza__filling--${ingredient.value}`,
+                ingredient.quantity === TWO_INGREDIENTS && 'pizza__filling--second',
+                ingredient.quantity === THREE_INGREDIENTS && 'pizza__filling--third',
+              ]"
             >
             </div>
           </div>
@@ -21,27 +28,37 @@
       </AppDrop>
     </div>
     <div class="content__result">
-      <p>Итого: {{ totalPrice }} ₽</p>
-      <button type="button" class="button" :disabled="!selectedIngredients.length">Готовьте!</button>
+      <p>Итого: 0 ₽</p>
+      <button type="button" class="button" disabled>Готовьте!</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { watch } from 'vue';
 import AppDrop from "@/common/components/AppDrop.vue";
-
-const selectedIngredients = ref([]);
-
-const onDropIngredient = (ingredient) => {
-  console.log('ingredient', ingredient);
-  selectedIngredients.value.push(ingredient);
-};
-
-const totalPrice = computed(() => {
-  return selectedIngredients.value.reduce((sum, ingredient) => sum + ingredient.price, 0);
+const props = defineProps({
+  dough: {
+    type: String,
+    required: true,
+  },
+  sauce: {
+    type: String,
+    required: true,
+  },
+  ingredients: {
+    type: Array,
+    required: true,
+  },
 });
 
+const TWO_INGREDIENTS = 2;
+const THREE_INGREDIENTS = 3;
+
+// Наблюдаем за изменениями ingredients
+watch(() => props.ingredients, (newIngredients) => {
+  console.log('Ингредиенты изменились:', newIngredients);
+}, { deep: true });
 </script>
 
 <style scoped>

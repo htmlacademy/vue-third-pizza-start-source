@@ -35,10 +35,11 @@
         </div>
 
         <!-- Компонент отображения пиццы -->
-        <PizzaDisplay />
-        <div>DoughSelector: {{ selectedDough }}</div>
-        <div>SizeSelector: {{ selectedSize }}</div>
-        <div>SauceSelector: {{ selectedSauce }}</div>
+        <PizzaDisplay
+          :dough="selectedDough"
+          :sauce="selectedSauce"
+          :ingredients="selectedIngredients"
+         />
       </div>
 
     </form>
@@ -47,7 +48,7 @@
 
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import {
   normalizeDough,
   normalizeIngredients,
@@ -87,6 +88,15 @@ onMounted(() => {
       count: 0
     };
   });
+});
+
+const selectedIngredients = computed(() => {
+  return Object.values(ingredientsState.value)
+    .filter(item => item.count > 0)
+    .map(item => ({
+      ...item.ingredient,
+      quantity: item.count
+    }));
 });
 
 

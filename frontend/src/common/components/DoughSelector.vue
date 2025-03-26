@@ -20,7 +20,6 @@
           <img :src="getImage(doughType.image)" :alt="doughType.name" />
           <b>{{ doughType.name }}</b>
           <span>{{ doughType.description }}</span>
-          <div>{{ modelValue }}</div>
         </label>
       </div>
     </div>
