@@ -7,7 +7,10 @@
           class="ingredients__item"
           :key="ingredient.id"
       >
-        <AppDrag :transferData="ingredient" :draggable="true">
+        <AppDrag 
+          :transferData="ingredient" 
+          :draggable="canDrag(ingredient)"
+        >
            <span class="filling" :class="`filling--${ingredient.name}`" style="display: inline-block;">
               <img :src="getImage(ingredient.image)" :alt="ingredient.name" draggable="false">
               {{ ingredient.name }}
@@ -96,6 +99,12 @@ const updateCount = (ingredientId, newCount) => {
     count: newCount
   };
   emit('update:modelValue', updatedValue);
+};
+
+const handleDragEnd = (ingredient) => {
+  if (canDrag(ingredient)) {
+    increment(ingredient.id);
+  }
 };
 
 const getImage = (image) => {

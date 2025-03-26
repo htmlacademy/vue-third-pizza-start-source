@@ -35,7 +35,6 @@
 </template>
 
 <script setup>
-import { watch } from 'vue';
 import AppDrop from "@/common/components/AppDrop.vue";
 const props = defineProps({
   dough: {
@@ -52,13 +51,14 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(['add-ingredient']);
+
 const TWO_INGREDIENTS = 2;
 const THREE_INGREDIENTS = 3;
 
-// Наблюдаем за изменениями ingredients
-watch(() => props.ingredients, (newIngredients) => {
-  console.log('Ингредиенты изменились:', newIngredients);
-}, { deep: true });
+const onDropIngredient = (ingredient) => {
+  emit('add-ingredient', ingredient);
+};
 </script>
 
 <style scoped>

@@ -39,6 +39,7 @@
           :dough="selectedDough"
           :sauce="selectedSauce"
           :ingredients="selectedIngredients"
+          @add-ingredient="handleAddIngredient"
          />
       </div>
 
@@ -98,6 +99,23 @@ const selectedIngredients = computed(() => {
       quantity: item.count
     }));
 });
+
+const handleAddIngredient = (ingredient) => {
+  const current = ingredientsState.value[ingredient.id] || { 
+    ingredient, 
+    count: 0 
+  };
+  
+  if (current.count < 3) {
+    ingredientsState.value = {
+      ...ingredientsState.value,
+      [ingredient.id]: {
+        ...current,
+        count: current.count + 1
+      }
+    };
+  }
+};
 
 
 </script>

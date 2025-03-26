@@ -15,12 +15,15 @@ const emit = defineEmits(['drop'])
 
 const onDrop = ({ dataTransfer }) => {
   if (!dataTransfer) return;
-
-  const payload = dataTransfer.getData(DATA_TRANSFER_PAYLOAD);
-
-  if (payload) {
-    const transferData = JSON.parse(dataTransfer.getData(DATA_TRANSFER_PAYLOAD));
-    emit('drop', transferData);
+  
+  try {
+    const payload = dataTransfer.getData(DATA_TRANSFER_PAYLOAD);
+    if (payload) {
+      const transferData = JSON.parse(payload);
+      emit('drop', transferData);
+    }
+  } catch (e) {
+    console.error('Error parsing drop data:', e);
   }
 }
 </script>
