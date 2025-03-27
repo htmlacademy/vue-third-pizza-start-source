@@ -12,11 +12,11 @@ const routeName = computed(() => route.name);
     <sidebar-layout>
         <template #sidebar>
             <router-link class="layout__link" :class="{ 'layout__link--active': routeName === 'orders' }"
-                :to="{ name: 'orders' }">
+                :to="{ name: 'UserOrder' }">
                 История заказов
             </router-link>
             <router-link class="layout__link" :class="{ 'layout__link--active': routeName === 'profile' }"
-                :to="{ name: 'profile' }">
+                :to="{ name: 'ProfileView' }">
                 Мои данные
             </router-link>
         </template>

@@ -1,7 +1,7 @@
 <template>
     <main class="layout">
         <div class="layout__sidebar sidebar">
-            <router-link :to="{ name: 'home' }" class="logo layout__logo">
+            <router-link :to="{ name: 'HomeView' }" class="logo layout__logo">
                 <img src="@/assets/img/logo.svg" alt="Конструктор пиццы" width="90" height="40" />
             </router-link>
 

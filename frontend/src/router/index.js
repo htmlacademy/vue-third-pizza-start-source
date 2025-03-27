@@ -3,13 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/LoginView.vue'
 import Card from '@/views/CardView.vue'
-import User from '@/views/UserView.vue'
 import Users from '@/views/UserView.vue'
 import UserOrder from '@/views/OrderView.vue'
-import UserProfile from  '@/views/UserView.vue'
-
-
-
+import ProfileView from  '@/views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,7 +13,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'HomeView',
-      component: HomeView
+      component: HomeView,
+      meta: { 
+        layout: "DefaultLayout" 
+      },
     }
     ,
     {
@@ -31,25 +30,20 @@ const router = createRouter({
       component: Card
     },
     {
-      path: '/user',
+      path: '/user/',
       name: 'User',
-      component: User
-    },
-    {
-      path: '/user/:id',
-      name: 'Users',
       component: Users,
       children: [
         {
-          path: 'profile',
-          name: UserProfile,
-          component: UserProfile,
+          path: 'orders',
+          name: 'UserOrder',
+          component: UserOrder,
           meta: { requiresAuth: true }
         },
         {
-          path: 'order',
-          name: 'UserOrder',
-          component: UserOrder,
+          path: 'profile',
+          name: 'ProfileView',
+          component: ProfileView,
           meta: { requiresAuth: true }
         }
       ]
