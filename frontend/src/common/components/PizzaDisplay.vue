@@ -2,13 +2,18 @@
   <div class="content__pizza">
     <label class="input">
       <span class="visually-hidden">Название пиццы</span>
-      <input type="text" name="pizza_name" placeholder="Введите название пиццы" />
+      <input 
+        type="text" 
+        name="pizza_name" 
+        placeholder="Введите название пиццы"
+        v-model="pizzaName"
+      />
     </label>
     <div class="content__constructor">
       <AppDrop @drop="onDropIngredient">
         <div 
           class="pizza" 
-          :class="`pizza--foundation--${dough}-${sauce}`"
+          :class="`pizza--foundation--${dough?.value}-${sauce?.value}`"
         >
           <div class="pizza__wrapper">
             <!-- Отображаем выбранные ингредиенты -->
@@ -28,27 +33,55 @@
       </AppDrop>
     </div>
     <div class="content__result">
-      <p>Итого: 0 ₽</p>
-      <button type="button" class="button" disabled>Готовьте!</button>
+      <p>Итого: {{ totalPrice }} ₽</p>
+      <button
+        type="button"
+        class="button"
+        :disabled="!isFormValid"
+      >
+        Готовьте!
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue';
 import AppDrop from "@/common/components/AppDrop.vue";
+
 const props = defineProps({
   dough: {
-    type: String,
-    required: true,
+    type: Object
   },
   sauce: {
-    type: String,
-    required: true,
+    type: Object
+  },
+  size: {
+    type: Object
   },
   ingredients: {
-    type: Array,
-    required: true,
+    type: Array
   },
+});
+
+const pizzaName = ref('');
+
+const totalPrice = computed(() => {
+  if (!props.size) return 0;
+  
+  // Сумма ингредиентов
+  const ingredientsSum = props.ingredients.reduce(
+    (sum, ing) => sum + (ing.price * ing.quantity),
+    0
+  );
+  
+  // Берем цены напрямую из объектов
+  return props.size.multiplier * (props.dough.price + props.sauce.price + ingredientsSum);
+});
+
+// Проверка валидности формы
+const isFormValid = computed(() => {
+  return pizzaName.value.trim() !== '' && totalPrice.value > 0;
 });
 
 const emit = defineEmits(['add-ingredient']);

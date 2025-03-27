@@ -39,6 +39,7 @@
           :dough="selectedDough"
           :sauce="selectedSauce"
           :ingredients="selectedIngredients"
+          :size="selectedSize"
           @add-ingredient="handleAddIngredient"
          />
       </div>
@@ -79,9 +80,9 @@ const selectedSauce = ref(null);
 const ingredientsState = ref({});
 
 onMounted(() => {
-  selectedDough.value = doughItems[0].value;
-  selectedSize.value = sizeItems[0].value;
-  selectedSauce.value = sauceItems[0].value;
+  selectedDough.value = doughItems[0];
+  selectedSize.value = sizeItems[0];
+  selectedSauce.value = sauceItems[0];
   // Инициализируем состояние для всех ингредиентов
   ingredientItems.forEach(ingredient => {
     ingredientsState.value[ingredient.id] = {

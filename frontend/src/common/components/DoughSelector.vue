@@ -14,8 +14,8 @@
               name="dought"
               :value="doughType.value"
               class="visually-hidden"
-              :checked="doughType.value === modelValue"
-              @change="$emit('update:modelValue', doughType.value)"
+              :checked="doughType.id === modelValue?.id"
+              @change="$emit('update:modelValue', doughType)"
           />
           <img :src="getImage(doughType.image)" :alt="doughType.name" />
           <b>{{ doughType.name }}</b>
@@ -27,6 +27,7 @@
 </template>
 
 <script setup>
+import { watch } from 'vue';
 
 const props = defineProps({
   doughItems: {
@@ -34,8 +35,7 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: Object,
-    required: true
+    type: Object
   }
 })
 

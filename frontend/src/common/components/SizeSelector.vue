@@ -14,8 +14,8 @@
               name="diameter"
               :value="sizeType.value"
               class="visually-hidden"
-              :checked="sizeType.value === modelValue"
-              @change="$emit('update:modelValue', sizeType.value)"
+              :checked="sizeType.id === modelValue?.id"
+              @change="$emit('update:modelValue', sizeType)"
           />
           <span>{{ sizeType.name }}</span>
         </label>
@@ -32,8 +32,7 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: Object,
-    required: true
+    type: Object
   }
 });
 
