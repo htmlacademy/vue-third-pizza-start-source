@@ -6,7 +6,8 @@
         type="text" 
         name="pizza_name" 
         placeholder="Введите название пиццы"
-        v-model="pizzaName"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
       />
     </label>
     <div class="content__constructor">
@@ -62,9 +63,10 @@ const props = defineProps({
   ingredients: {
     type: Array
   },
+  modelValue: {
+    type: String
+  }
 });
-
-const pizzaName = ref('');
 
 const totalPrice = computed(() => {
   if (!props.size) return 0;
@@ -81,7 +83,7 @@ const totalPrice = computed(() => {
 
 // Проверка валидности формы
 const isFormValid = computed(() => {
-  return pizzaName.value.trim() !== '' && totalPrice.value > 0;
+  return props.modelValue.trim() !== '' && totalPrice.value > 0;
 });
 
 const emit = defineEmits(['add-ingredient']);

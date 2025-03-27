@@ -8,13 +8,13 @@
         <!-- Компонент выбора теста -->
         <DoughSelector 
           :doughItems="doughItems"
-          v-model:modelValue="selectedDough"
+          v-model:modelValue="pizza.dough"
         />
 
         <!-- Компонент выбора размера -->
         <SizeSelector 
           :sizeItems="sizeItems"
-          v-model:modelValue="selectedSize"
+          v-model:modelValue="pizza.size"
         />
 
     
@@ -24,11 +24,11 @@
             <div class="sheet__content ingredients">
               <SauceSelector 
                 :sauceItems="sauceItems"
-                v-model:modelValue="selectedSauce"
+                v-model:modelValue="pizza.sauce"
               />
               <IngredientsSelector 
                 :ingredientItems="ingredientItems"
-                v-model:modelValue="ingredientsState"
+                v-model:modelValue="pizza.ingredients"
               />
             </div>
           </div>
@@ -36,10 +36,11 @@
 
         <!-- Компонент отображения пиццы -->
         <PizzaDisplay
-          :dough="selectedDough"
-          :sauce="selectedSauce"
+          :dough="pizza.dough"
+          :sauce="pizza.sauce"
           :ingredients="selectedIngredients"
-          :size="selectedSize"
+          :size="pizza.size"
+          v-model="pizza.name"
           @add-ingredient="handleAddIngredient"
          />
       </div>
@@ -50,7 +51,7 @@
 
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { computed, reactive } from 'vue';
 import {
   normalizeDough,
   normalizeIngredients,
@@ -74,26 +75,23 @@ const ingredientItems = ingredientsJSON.map(normalizeIngredients);
 const sauceItems = saucesJSON.map(normalizeSauces);
 const sizeItems = sizesJSON.map(normalizeSize);
 
-const selectedDough = ref(null);
-const selectedSize = ref(null);
-const selectedSauce = ref(null);
-const ingredientsState = ref({});
-
-onMounted(() => {
-  selectedDough.value = doughItems[0];
-  selectedSize.value = sizeItems[0];
-  selectedSauce.value = sauceItems[0];
-  // Инициализируем состояние для всех ингредиентов
-  ingredientItems.forEach(ingredient => {
-    ingredientsState.value[ingredient.id] = {
-      ingredient,
+const pizza = reactive({
+  name: "",
+  dough: doughItems[0],
+  size: sizeItems[0],
+  sauce: sauceItems[0],
+  ingredients: ingredientItems.reduce((acc, item) => {
+    acc[item.id] = {
+      ingredient: item,
       count: 0
     };
-  });
+    return acc;
+  }, {})
 });
 
+// Вычисляемое свойство для отображения выбранных ингредиентов
 const selectedIngredients = computed(() => {
-  return Object.values(ingredientsState.value)
+  return Object.values(pizza.ingredients)
     .filter(item => item.count > 0)
     .map(item => ({
       ...item.ingredient,
@@ -102,19 +100,8 @@ const selectedIngredients = computed(() => {
 });
 
 const handleAddIngredient = (ingredient) => {
-  const current = ingredientsState.value[ingredient.id] || { 
-    ingredient, 
-    count: 0 
-  };
-  
-  if (current.count < 3) {
-    ingredientsState.value = {
-      ...ingredientsState.value,
-      [ingredient.id]: {
-        ...current,
-        count: current.count + 1
-      }
-    };
+  if (pizza.ingredients[ingredient.id].count < 3) {
+    pizza.ingredients[ingredient.id].count++;
   }
 };
 
