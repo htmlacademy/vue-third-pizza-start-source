@@ -1,6 +1,4 @@
-import { defineStore } from 'pinia'
-
-
+import { defineStore } from "pinia";
 import doughJSON from "@/mocks/dough.json";
 import {
   normalizeDough,
@@ -13,14 +11,12 @@ import saucesJSON from "@/mocks/sauces.json";
 import sizesJSON from "@/mocks/sizes.json";
 import miscJSON from "@/mocks/misc.json";
 
-export const useUsersStore = defineStore('usersStore', {
-    state: () => ({
-        doughs: doughJSON.map(normalizeDough),
-        ingredients: ingredientsJSON.map(normalizeIngredients),
-        sauces: saucesJSON.map(normalizeSauces),
-        sizes: sizesJSON.map(normalizeSize),
-        misc: miscJSON,
-    }),
-    getters: {},
-    actions: {}
-})
+export const useDataStore = defineStore("data", {
+  state: () => ({
+    doughs: doughJSON.map(normalizeDough),
+    ingredients: ingredientsJSON.map(normalizeIngredients),
+    sauces: saucesJSON.map(normalizeSauces),
+    sizes: sizesJSON.map(normalizeSize),
+    misc: miscJSON,
+  }),
+});

@@ -2,52 +2,57 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/LoginView.vue'
-import Card from '@/views/CardView.vue'
+import Cart from '@/views/CartView.vue'
 import Users from '@/views/UserView.vue'
-import UserOrder from '@/views/OrderView.vue'
+import Orders from '@/views/OrdersView.vue'
 import ProfileView from  '@/views/ProfileView.vue'
+import Success from  '@/views/SuccessView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      name: 'HomeView',
+      path: "",
+      name: "home",
       component: HomeView,
-      meta: { 
-        layout: "DefaultLayout" 
-      },
-    }
-    ,
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
+      meta: { layout: "DefaultLayout" },
     },
     {
-      path: '/card',
-      name: 'Card',
-      component: Card
+      path: "/login",
+      name: "login",
+      component: Login,
+      meta: { layout: "SimpleLayout" },
     },
     {
-      path: '/user/',
-      name: 'User',
+      path: "/cart",
+      name: "cart",
+      component: Cart,
+      meta: { layout: "DefaultLayout" },
+    },
+    {
+      path: "/success",
+      name: "success",
+      component: Success,
+      meta: { layout: "SimpleLayout" },
+    },
+    {
+      path: "/user",
+      name: "user",
       component: Users,
+      meta: { layout: "DefaultLayout" },
       children: [
         {
-          path: 'orders',
-          name: 'UserOrder',
-          component: UserOrder,
-          meta: { requiresAuth: true }
+          path: "orders",
+          name: "orders",
+          component: Orders,
         },
         {
-          path: 'profile',
-          name: 'ProfileView',
+          path: "profile",
+          name: "profile",
           component: ProfileView,
-          meta: { requiresAuth: true }
-        }
-      ]
-    }
+        },
+      ],
+    },
 
   ]
 })
