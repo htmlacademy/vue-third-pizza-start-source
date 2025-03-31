@@ -1,8 +1,10 @@
 <template>
   <div class="sheet__content dough">
-    <label class="dough__input"
-       v-for="doughType in doughItems" 
-       :key="doughType.id">
+    <label
+          v-for="doughType in items"
+          :key="doughType.id"
+          class="dough__input"
+        >
        <input
           type="radio"
           name="dough"

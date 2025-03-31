@@ -6,7 +6,7 @@ import { useDataStore } from "@/stores/data";
 export const usePizzaStore = defineStore('pizzaStore', {
     state: () => ({
         index: null,
-        name: "",
+        name: '',
         sauceId: 0,
         doughId: 0,
         sizeId: 0,

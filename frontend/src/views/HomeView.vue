@@ -39,7 +39,7 @@
           />
 
           <div class="content__result">
-            <p>Итого: {{ price }} ₽</p>
+            <p>Итого: {{ pizzaStore.price }} ₽</p>
             <button type="button" class="button" :disabled="disableSubmit"  @click="addToCart">
               Готовьте!
             </button>
