@@ -41,11 +41,13 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+  
     width: 100%;
     margin-bottom: 14px;
   
     p {
       @include r-s16-h19;
+  
       margin-top: 0;
       margin-right: 16px;
       margin-bottom: 10px;
