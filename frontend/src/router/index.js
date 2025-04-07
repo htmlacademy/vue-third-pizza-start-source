@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { middlewarePipeline } from "@/middlewares/middlewarePipeline";
 
 import HomeView from '@/views/HomeView.vue'
 import Login from '@/views/LoginView.vue'
@@ -7,6 +8,7 @@ import Users from '@/views/UserView.vue'
 import Orders from '@/views/OrdersView.vue'
 import ProfileView from  '@/views/ProfileView.vue'
 import Success from  '@/views/SuccessView.vue'
+import { isLoggedIn } from "@/middlewares/isLoggedIn";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -39,7 +41,10 @@ const router = createRouter({
       path: "/user",
       name: "user",
       component: Users,
-      meta: { layout: "DefaultLayout" },
+      meta: { 
+        layout: "DefaultLayout",
+        middlewares: [isLoggedIn],
+      },
       children: [
         {
           path: "orders",
@@ -58,3 +63,5 @@ const router = createRouter({
 })
 
 export default router;
+
+middlewarePipeline(router);

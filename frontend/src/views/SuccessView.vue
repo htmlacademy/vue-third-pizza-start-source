@@ -17,4 +17,12 @@
   import AppPopup from "@/common/components/popup/AppPopup.vue";
   import AppPopupTitle from "@/common/components/popup/AppPopupTitle.vue";
   import AppPopupButton from "@/common/components/popup/AppPopupButton.vue";
+  import { computed } from "vue";
+  import { useAuthStore } from "@/stores/auth";
+  
+  const authStore = useAuthStore();
+  
+  const redirectRouteName = computed(() =>
+    authStore.isAuthenticated ? "orders" : "home"
+  );
   </script>

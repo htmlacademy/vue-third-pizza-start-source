@@ -1,19 +1,9 @@
 <template>
   <div class="sheet__content dough">
-    <label
-          v-for="doughType in items"
-          :key="doughType.id"
-          class="dough__input"
-        >
-       <input
-          type="radio"
-          name="dough"
-          :value="doughType.id"
-          :checked="doughType.id === modelValue"
-          class="visually-hidden"
-          @input="emit('update:modelValue', doughType.id)"
-       />
-      <img :src="getImage(doughType.image)" :alt="doughType.name" />
+    <label v-for="doughType in items" :key="doughType.id" class="dough__input">
+      <input type="radio" name="dough" :value="doughType.id" :checked="doughType.id === modelValue"
+        class="visually-hidden" @input="emit('update:modelValue', doughType.id)" />
+        <img :src="getPublicImage(doughType.image)" :alt="doughType.name" />
 
       <b>{{ doughType.name }}</b>
       <span>{{ doughType.description }}</span>
@@ -22,6 +12,8 @@
 </template>
 
 <script setup>
+import { getPublicImage } from "@/common/helpers/public-image";
+
 defineProps({
   modelValue: {
     type: Number,
@@ -35,9 +27,6 @@ defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const getImage = (image) => {
-  return new URL(`../../assets/img/${image}`, import.meta.url).href;
-};
 </script>
 
 <style lang="scss" scoped>
@@ -88,7 +77,7 @@ const getImage = (image) => {
   }
 
   input {
-    &:checked + img {
+    &:checked+img {
       box-shadow: $shadow-large;
     }
   }
