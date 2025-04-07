@@ -128,6 +128,8 @@ const updateIngredientAmount = (ingredient, count) => {
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/ds-system/ds.scss";
+@import "@/assets/scss/mixins/mixins.scss";
 
 .content__ingredients {
   width: 527px;
@@ -160,5 +162,4 @@ const updateIngredientAmount = (ingredient, count) => {
     padding: 16px 45px;
   }
 }
-
 </style>
