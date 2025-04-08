@@ -1,62 +1,48 @@
 <template>
-  <div class="main__wrapper">
-    <div class="main__header">
-      <img src="@/assets/img/logo.svg" width="300" height="47" alt="V!U!E! Pizza" />
-    </div>
-    <h1>Добро пожаловать!</h1>
-    <p>
-      Это проект V!U!E! Pizza для обучения на профессиональном онлайн‑курсе<br />
-      <b>«Vue.js для опытных разработчиков».</b>
-    </p>
-  </div>
+  <app-layout>
+    <router-view v-if="isLoaded" />
+  </app-layout>
 </template>
+
+<script setup>
+import AppLayout from "@/layouts/AppLayout.vue";
+import { onMounted, ref } from "vue";
+import { useDataStore } from "@/stores/data";
+import { useAuthStore } from "@/stores/auth";
+import JwtService from "@/services/jwt/jwt";
+import { router } from "@/router";
+import { useRoute } from "vue-router";
+
+const dataStore = useDataStore();
+const route = useRoute();
+const isLoaded = ref(false);
+
+const checkLoggedIn = async () => {
+  const authStore = useAuthStore();
+  const token = JwtService.getToken();
+  if (!token) {
+    isLoaded.value = true;
+    return;
+  }
+
+  try {
+    await authStore.whoami();
+    const { redirect } = route.query;
+    await router.push(redirect ? redirect : { name: "home" });
+  } catch (e) {
+    JwtService.destroyToken();
+    console.error(e);
+  } finally {
+    isLoaded.value = true;
+  }
+};
+
+onMounted(() => {
+  checkLoggedIn();
+  dataStore.loadData();
+});
+</script>
 
 <style lang="scss">
 @import "@/assets/scss/app.scss";
-body {
-  justify-content: center;
-  align-items: center;
-}
-.main__wrapper {
-  padding-bottom: 30px;
-
-  background-color: $white;
-  box-shadow: $shadow-light;
-
-  h1 {
-    margin-bottom: 0;
-    padding: 0 95px;
-
-    text-align: center;
-
-    @include b-s36-h42;
-  }
-
-  p {
-    padding: 0 95px;
-
-    text-align: center;
-
-    font-size: 20px;
-    line-height: 30px;
-  }
-
-  b {
-    font-size: 1.2em;
-  }
-}
-
-.main__header {
-  margin-bottom: 30px;
-  padding: 20px 0;
-
-  background-color: $green-600;
-
-  img {
-    display: block;
-
-    margin: 0 auto;
-  }
-}
-
 </style>
