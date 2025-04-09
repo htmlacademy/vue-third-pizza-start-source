@@ -17,11 +17,8 @@
             <div class="sheet__content ingredients">
               <sauce-selector v-model="pizza.sauce" :items="sauceItems" />
 
-              <ingredients-selector
-                :values="pizza.ingredients"
-                :items="ingredientItems"
-                @update="updateIngredientAmount"
-              />
+              <ingredients-selector :values="pizza.ingredients" :items="ingredientItems"
+                @update="updateIngredientAmount" />
             </div>
           </div>
         </div>
@@ -29,20 +26,14 @@
         <div class="content__pizza">
           <label class="input">
             <span class="visually-hidden">Название пиццы</span>
-            <input
-              v-model="pizza.name"
-              type="text"
-              name="pizza_name"
-              placeholder="Введите название пиццы"
-            />
+            <input v-model="pizza.name" type="text" name="pizza_name" placeholder="Введите название пиццы" />
           </label>
 
           <pizza-constructor
             :dough="pizza.dough"
             :sauce="pizza.sauce"
             :ingredients="pizza.ingredients"
-            @drop="addIngredient"
-          />
+            @drop="addIngredient" />
 
           <div class="content__result">
             <p>Итого: {{ price }} ₽</p>
