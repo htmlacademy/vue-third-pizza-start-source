@@ -1,5 +1,5 @@
-export default {
-  1: "small",
-  2: "normal",
-  3: "big",
-};
+  export default {
+    1: "small",
+    2: "normal",
+    3: "big",
+  };
