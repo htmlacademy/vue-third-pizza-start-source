@@ -3,7 +3,6 @@ import { fileURLToPath, URL } from "url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   test: {
@@ -21,6 +20,10 @@ export default defineConfig({
       "/api": {
         target: "http://backend:3000/",
         rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      "/public": {
+        target: "http://backend:3000/",
+        changeOrigin: true,
       },
     },
   },

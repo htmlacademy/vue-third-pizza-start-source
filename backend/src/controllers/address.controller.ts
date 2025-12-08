@@ -21,12 +21,16 @@ import {
 import {Address} from '../models';
 import {AddressRepository} from '../repositories';
 import {authenticate} from '@loopback/authentication';
+import {inject} from '@loopback/core';
+import {SecurityBindings, UserProfile} from '@loopback/security';
 
 @authenticate('jwt')
 export class AddressController {
   constructor(
     @repository(AddressRepository)
     public addressRepository : AddressRepository,
+    @inject(SecurityBindings.USER)
+    private currentUserProfile: UserProfile,
   ) {}
 
   @post('/addresses')
@@ -41,7 +45,6 @@ export class AddressController {
           schema: {
             example: {
               name: "string",
-              userId: "string",
               street: "string",
               building: "string",
               flat: "string",
@@ -51,9 +54,13 @@ export class AddressController {
         },
       },
     })
-    address: Address,
+    address: Omit<Address, 'id' | 'userId'>,
   ): Promise<Address> {
-    return this.addressRepository.create(address);
+    const userId = this.currentUserProfile.id;
+    return this.addressRepository.create({
+      ...address,
+      userId: userId,
+    });
   }
 
   @oas.visibility(OperationVisibility.UNDOCUMENTED)
@@ -81,8 +88,10 @@ export class AddressController {
     },
   })
   async find(): Promise<Address[]> {
-    const addresses = await this.addressRepository.find();
-    return addresses.filter(address => !!address.userId);
+    const userId = this.currentUserProfile.id;
+    return this.addressRepository.find({
+      where: {userId: userId}
+    });
   }
 
   @oas.visibility(OperationVisibility.UNDOCUMENTED)

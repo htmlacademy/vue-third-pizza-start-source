@@ -58,23 +58,48 @@ const populateMisc = (
 };
 
 export default async function load(app: Application) {
-  const usersPromises = users.map(async user => populateUsers(user, await app.getRepository(UserRepository)))
-  await Promise.all(usersPromises);
+  const doughRepository = await app.getRepository(DoughRepository);
+  const ingredientRepository = await app.getRepository(IngredientRepository);
+  const sauceRepository = await app.getRepository(SauceRepository);
+  const sizeRepository = await app.getRepository(SizeRepository);
+  const miscRepository = await app.getRepository(MiscRepository);
+  const userRepository = await app.getRepository(UserRepository);
 
-  const doughPromises = pizza.dough.map(async dough => populateDough(dough, await app.getRepository(DoughRepository)))
-  await Promise.all(doughPromises);
+  const existingDough = await doughRepository.count();
+  if (existingDough.count === 0) {
+    const doughPromises = pizza.dough.map(async dough => populateDough(dough, doughRepository))
+    await Promise.all(doughPromises);
+  }
 
-  const ingredientsPromises = pizza.ingredients.map(async ing => populateIngredients(ing, await app.getRepository(IngredientRepository)))
-  await Promise.all(ingredientsPromises);
+  const existingIngredients = await ingredientRepository.count();
+  if (existingIngredients.count === 0) {
+    const ingredientsPromises = pizza.ingredients.map(async ing => populateIngredients(ing, ingredientRepository))
+    await Promise.all(ingredientsPromises);
+  }
 
-  const saucesPromises = pizza.sauces.map(async sauce => populateSauces(sauce, await app.getRepository(SauceRepository)))
-  await Promise.all(saucesPromises);
+  const existingSauces = await sauceRepository.count();
+  if (existingSauces.count === 0) {
+    const saucesPromises = pizza.sauces.map(async sauce => populateSauces(sauce, sauceRepository))
+    await Promise.all(saucesPromises);
+  }
 
-  const sizesPromises = pizza.sizes.map(async size => populateSizes(size, await app.getRepository(SizeRepository)))
-  await Promise.all(sizesPromises);
+  const existingSizes = await sizeRepository.count();
+  if (existingSizes.count === 0) {
+    const sizesPromises = pizza.sizes.map(async size => populateSizes(size, sizeRepository))
+    await Promise.all(sizesPromises);
+  }
 
-  const miscPromises = misc.map(async m => populateMisc(m, await app.getRepository(MiscRepository)))
-  await Promise.all(miscPromises);
+  const existingMisc = await miscRepository.count();
+  if (existingMisc.count === 0) {
+    const miscPromises = misc.map(async m => populateMisc(m, miscRepository))
+    await Promise.all(miscPromises);
+  }
+
+  const existingUsers = await userRepository.count();
+  if (existingUsers.count === 0) {
+    const usersPromises = users.map(async user => populateUsers(user, userRepository))
+    await Promise.all(usersPromises);
+  }
 
   console.log('Dummy data is populated')
 }

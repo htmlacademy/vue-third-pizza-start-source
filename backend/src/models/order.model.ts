@@ -39,6 +39,12 @@ export class Order extends Entity {
   phone?: String;
 
   @property({
+    type: 'string',
+    required: false,
+  })
+  comment?: string;
+
+  @property({
     type: 'array',
     required: false,
     itemType: 'object',

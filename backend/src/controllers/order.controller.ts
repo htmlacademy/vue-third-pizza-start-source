@@ -25,6 +25,8 @@ import {
   PizzaRepository
 } from '../repositories';
 import {authenticate} from "@loopback/authentication";
+import {inject} from '@loopback/core';
+import {SecurityBindings, UserProfile} from '@loopback/security';
 
 export class OrderController {
   constructor(
@@ -38,6 +40,8 @@ export class OrderController {
     public pizzaIngredientRepository : PizzaIngredientRepository,
     @repository(PizzaRepository)
     public pizzaRepository : PizzaRepository,
+    @inject(SecurityBindings.USER, {optional: true})
+    private currentUserProfile?: UserProfile,
   ) {}
 
   @post('/orders')
@@ -60,6 +64,7 @@ export class OrderController {
               "userId": "string",
               "phone": "+7 999-999-99-99",
               "address": {
+                "name": "string",
                 "street": "string",
                 "building": "string",
                 "flat": "string",
@@ -99,29 +104,34 @@ export class OrderController {
     let addressId = address?.id;
     // if it is a new address
     if (address && !addressId) {
-      const name = `ул.${address.street}, д.${address.building}, кв.${address.flat}`;
-      const newAddress = await this.addressRepository.create({...address, name, userId});
+      const newAddress = await this.addressRepository.create({...address, userId});
       addressId = newAddress.id;
     }
     const newOrder = await this.orderRepository.create({...orderToSave, addressId});
-    for (const pizza of pizzas) {
-      const { ingredients, ...pizzaToSave } = pizza;
-      const newPizza = await this.pizzaRepository.create({
-        ...pizzaToSave,
-        orderId: newOrder.id
-      });
-      for (const ingredient of ingredients) {
-        await this.pizzaIngredientRepository.create({
-          ...ingredient,
-          pizzaId: newPizza.id
-        })
+    if (pizzas && Array.isArray(pizzas)) {
+      for (const pizza of pizzas) {
+        const { ingredients, ...pizzaToSave } = pizza;
+        const newPizza = await this.pizzaRepository.create({
+          ...pizzaToSave,
+          orderId: newOrder.id
+        });
+        if (ingredients && Array.isArray(ingredients)) {
+          for (const ingredient of ingredients) {
+            await this.pizzaIngredientRepository.create({
+              ...ingredient,
+              pizzaId: newPizza.id
+            })
+          }
+        }
       }
     }
-    for (const item of misc) {
-      await this.miscOrderRepository.create({
-        ...item,
-        orderId: newOrder.id
-      })
+    if (misc && Array.isArray(misc)) {
+      for (const item of misc) {
+        await this.miscOrderRepository.create({
+          ...item,
+          orderId: newOrder.id
+        })
+      }
     }
     return newOrder;
   }
@@ -195,7 +205,16 @@ export class OrderController {
     },
   })
   async find(): Promise<Order[]> {
+    const userId = this.currentUserProfile?.id;
+    
+    if (!userId) {
+      throw new Error('User not authenticated');
+    }
+    
     const filter = {
+      "where": {
+        "userId": String(userId)
+      },
       "include": [
         {
           "relation": "orderPizzas",
@@ -215,8 +234,7 @@ export class OrderController {
         }
       ]
     }
-    const orders = await this.orderRepository.find(filter);
-    return orders.filter(order => !!order.userId);
+    return await this.orderRepository.find(filter);
   }
 
   @oas.visibility(OperationVisibility.UNDOCUMENTED)

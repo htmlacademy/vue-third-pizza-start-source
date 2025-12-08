@@ -1,5 +1,6 @@
-$shadow-light: 0 4px 8px rgba($black, 0.04), 0 0 2px rgba($black, 0.06), 0 0 1px rgba($black, 0.04);
-$shadow-regular: 0 0 0 2px rgba($green-500, 0.6);
-$shadow-medium: 0 16px 24px rgba($black, 0.06), 0 2px 6px rgba($black, 0.04), 0 0 1px rgba($black, 0.04);
-$shadow-big: 0 0 2px 2px rgba($black, 0.5);
-$shadow-large: 0 0 0 2px $green-500;
+// Shadow variables (independent of colors to avoid circular dependencies)
+$shadow-light: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+$shadow-regular: 0 0 0 2px rgba(65, 182, 25, 0.6);
+$shadow-medium: 0 16px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+$shadow-big: 0 0 2px 2px rgba(0, 0, 0, 0.5);
+$shadow-large: 0 0 0 2px #41b619;

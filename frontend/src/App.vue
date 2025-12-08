@@ -1,27 +1,39 @@
 <template>
-  <div class="main__wrapper">
-    <div class="main__header">
-      <img src="@/assets/img/logo.svg" width="300" height="47" alt="V!U!E! Pizza" />
-    </div>
-    <h1>Добро пожаловать!</h1>
-    <p>
-      Это проект V!U!E! Pizza для обучения на профессиональном онлайн‑курсе<br />
-      <b>«Vue.js для опытных разработчиков».</b>
-    </p>
-  </div>
+  <RouterView v-slot="{ Component, route }">
+    <Transition name="slide" mode="out-in">
+      <component :is="Component" :key="route.path" />
+    </Transition>
+  </RouterView>
 </template>
 
+<script setup>
+import { onMounted } from 'vue'
+import { useCartStore } from '@/stores'
+
+const cartStore = useCartStore()
+
+onMounted(() => {
+  cartStore.loadFromStorage()
+})
+</script>
+
 <style lang="scss">
+@use "@/assets/scss/ds-system/ds-colors";
+@use "@/assets/scss/ds-system/ds-shadows";
+@use "@/assets/scss/ds-system/ds-typography";
 @import "@/assets/scss/app.scss";
+@import "@/assets/styles/transitions.scss";
+
 body {
   justify-content: center;
   align-items: center;
 }
+
 .main__wrapper {
   padding-bottom: 30px;
 
-  background-color: $white;
-  box-shadow: $shadow-light;
+  background-color: ds-colors.$white;
+  box-shadow: ds-shadows.$shadow-light;
 
   h1 {
     margin-bottom: 0;
@@ -29,7 +41,9 @@ body {
 
     text-align: center;
 
-    @include b-s36-h42;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 42px;
   }
 
   p {
@@ -50,7 +64,7 @@ body {
   margin-bottom: 30px;
   padding: 20px 0;
 
-  background-color: $green-600;
+  background-color: ds-colors.$green-600;
 
   img {
     display: block;
@@ -58,5 +72,4 @@ body {
     margin: 0 auto;
   }
 }
-
 </style>
