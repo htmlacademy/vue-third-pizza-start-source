@@ -1,0 +1,118 @@
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.content {
+  min-height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.layout {
+  display: flex;
+}
+
+.layout__sidebar {
+  width: 260px;
+}
+
+.layout__content {
+  flex: 1;
+  padding: 24px;
+}
+
+.layout__title {
+  margin-bottom: 24px;
+}
+
+.sheet {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+
+.title {
+  font-weight: 700;
+}
+
+.title--big {
+  font-size: 32px;
+}
+
+.title--small {
+  font-size: 20px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.button--border {
+  background: transparent;
+  border: 1px solid #ccc;
+}
+
+.button--transparent {
+  background: transparent;
+}
+
+.button--arrow {
+  padding-right: 36px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.select {
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter__button {
+  width: 32px;
+  height: 32px;
+}
+
+.counter__input {
+  width: 40px;
+  text-align: center;
+}
+
+.product {
+  display: flex;
+  gap: 16px;
+}
+
+.product__img {
+  flex-shrink: 0;
+}
+
+.product__text h2 {
+  margin: 0 0 6px;
+}
