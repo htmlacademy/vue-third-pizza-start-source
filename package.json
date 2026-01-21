@@ -1,9 +1,15 @@
 {
   "devDependencies": {
+    "@vue/test-utils": "^2.4.6",
     "husky": "^8.0.0",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "vitest": "^4.0.17",
+    "vue": "^3.5.27"
   },
   "scripts": {
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "axios": "^1.13.2"
   }
 }
