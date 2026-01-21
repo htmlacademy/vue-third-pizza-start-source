@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { routes } from "@/router/routes";
+import { navguard } from "@/navigationguards/navguard";
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+export const router = createRouter({
+  routes,
+  history: createWebHistory(),
 });
 
-export default router;
+navguard(router);
