@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 
 services:
   db:
     image: postgres
     environment:
-      POSTGRES_HOST_AUTH_METHOD: 'trust'
+      POSTGRES_HOST_AUTH_METHOD: "trust"
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: psql
       POSTGRES_DB: pizza
@@ -25,13 +25,14 @@ services:
   frontend:
     build:
       context: ./frontend
-#    https://github: com/vitejs/vite/issues/2671#issuecomment-829535806:
+    #    https://github: com/vitejs/vite/issues/2671#issuecomment-829535806:
     command: sh -c "npm rebuild esbuild && npm run dev"
     environment:
-      PORT: '8080'
-      HOST: '0.0.0.0'
+      PORT: "8080"
+      HOST: "0.0.0.0"
+      VITE_API_URL: "http://localhost:3000"
     ports:
-      - '8080:8080'
+      - "8080:8080"
     volumes:
       - ./frontend:/frontend
       - /frontend/node_modules
