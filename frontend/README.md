@@ -1,13 +1,24 @@
-# Vue 3
+# Vue 3 + TypeScript
 
-## Рекоммендации по настройке IDE
+## Рекомендации по настройке IDE
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + расширение [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (бывший Volar). Если установлен Vetur — отключите его.
+
+## TypeScript
+
+- Исходники пишутся на TypeScript: `.ts`-файлы и компоненты с `<script setup lang="ts">`.
+- Конфигурация разбита на несколько файлов:
+  - `tsconfig.json` — корневой, только ссылается на остальные;
+  - `tsconfig.app.json` — код приложения (`src/`);
+  - `tsconfig.vitest.json` — тесты (`*.spec.ts`, `__tests__`);
+  - `tsconfig.node.json` — конфиги, которые выполняются в Node (`vite.config.ts`).
+- Общие типы сущностей лежат в `src/types`.
+- Vite (`npm run dev`) типы **не проверяет**, а только вырезает их. Ошибки типов показывает IDE и команда `npm run type-check`.
 
 ## Установка зависимостей
 
 ```sh
-npm install
+npm ci
 ```
 
 ### Запуск проекта
@@ -16,7 +27,13 @@ npm install
 npm run dev
 ```
 
-### Сборка проекта
+### Проверка типов
+
+```sh
+npm run type-check
+```
+
+### Сборка проекта (с проверкой типов)
 
 ```sh
 npm run build

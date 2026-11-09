@@ -1,4 +1,4 @@
-export default {
+const ingredients = {
   1: "mushrooms",
   2: "cheddar",
   3: "salami",
@@ -14,4 +14,10 @@ export default {
   13: "mozzarella",
   14: "parmesan",
   15: "blue_cheese",
-};
+} as const;
+
+export type IngredientName = (typeof ingredients)[keyof typeof ingredients];
+
+const ingredientsById: Readonly<Record<number, IngredientName>> = ingredients;
+
+export default ingredientsById;
